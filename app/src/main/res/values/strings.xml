@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Appnimal</string>
+    <string name="welcome">Welcome to Appnimal!</string>
+    <string name="login">Login!</string>
+    <string name="register">Sign Up!</string>
+    <string name="cancel">Cancel</string>
+    <string name="loginText">You can log in here:</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="registration">You can register here:</string>
+    <string name="emailaddress">Email address</string>
+    <string name="password_again">Password again</string>
+
+</resources>
