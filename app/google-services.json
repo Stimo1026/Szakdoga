@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "909113845573",
+    "project_id": "appnimal-7a330",
+    "storage_bucket": "appnimal-7a330.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909113845573:android:0da0c552b41db926d0402c",
+        "android_client_info": {
+          "package_name": "com.example.appnimal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "909113845573-fh58fuh82rr89a4uueorobgvr49ibog6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.appnimal",
+            "certificate_hash": "0a109156220056fc53334b12603b10f24d5b5947"
+          }
+        },
+        {
+          "client_id": "909113845573-69cu1qervsld46sssqk83jg2cl77s134.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcuFUh012wtQIUBfy1PGe8AJEMCLNKz30"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "909113845573-69cu1qervsld46sssqk83jg2cl77s134.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
