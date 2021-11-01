@@ -57,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
         String pwConfirm = passwordConfirmEditText.getText().toString();
 
         if (!pw.equals(pwConfirm)) {
-            Log.e(LOG_TAG, "Passwords do not match");
+            Toast.makeText(RegisterActivity.this, "Password do not match!", Toast.LENGTH_LONG).show();
         }
 
         auth.createUserWithEmailAndPassword(email, pw).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -68,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
                     startAppnimal();
                 } else {
                     Log.d(LOG_TAG, "User was't created successfully:", task.getException());
-                    Toast.makeText(RegisterActivity.this, "User was't created successfully:", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, "Error: creating user", Toast.LENGTH_LONG).show();
                 }
             }
         });
