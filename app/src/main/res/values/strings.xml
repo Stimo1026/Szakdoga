@@ -10,5 +10,6 @@
     <string name="registration">You can register here:</string>
     <string name="emailaddress">Email address</string>
     <string name="password_again">Password again</string>
+    <string name="login_succesful">login succesful</string>
 
 </resources>
