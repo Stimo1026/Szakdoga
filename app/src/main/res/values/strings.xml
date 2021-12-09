@@ -13,4 +13,7 @@
     <string name="login_succesful">login succesful</string>
     <string name="login_with_google">Login With Google</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>

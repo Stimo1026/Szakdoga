@@ -6,7 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".AppnimalActivity"
     android:fitsSystemWindows="true"
+    android:id="@+id/draw_layout"
     tools:openDrawer="start">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
     
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
@@ -28,25 +33,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="250dp"
             android:layout_marginBottom="656dp"
             android:text="@string/login_succesful"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="parent" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:background="#00FFFFFF"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/menu_icon" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -92,17 +92,21 @@ public class LoginActivity extends AppCompatActivity {
         String uname = editTextTextPersonName.getText().toString();
         String pw = editTextTextPassword.getText().toString();
 
-
-        auth.signInWithEmailAndPassword(uname, pw).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    startAppnimal();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Invalid email or password!", Toast.LENGTH_LONG).show();
+        if(pw.equals("") || uname.equals("")){
+            Toast.makeText(LoginActivity.this, "Something is missing.", Toast.LENGTH_LONG).show();
+        }else{
+            auth.signInWithEmailAndPassword(uname, pw).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        startAppnimal();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Invalid email or password!", Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
-        });
+            });
+        }
+
     }
     public void cancel(View view){
         finish();
