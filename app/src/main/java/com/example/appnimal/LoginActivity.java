@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
         String pw = editTextTextPassword.getText().toString();
 
         if(pw.equals("") || uname.equals("")){
-            Toast.makeText(LoginActivity.this, "Something is missing.", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "Something is missing!", Toast.LENGTH_LONG).show();
         }else{
             auth.signInWithEmailAndPassword(uname, pw).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override

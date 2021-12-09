@@ -45,11 +45,11 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void cancel(View view){
+    public void cancel(View view) {
         finish();
     }
 
-    public void register(View view){
+    public void register(View view) {
 
         String username = userNameEditText.getText().toString();
         String email = userEmailEditText.getText().toString();
@@ -59,19 +59,22 @@ public class RegisterActivity extends AppCompatActivity {
         if (!pw.equals(pwConfirm)) {
             Toast.makeText(RegisterActivity.this, "Password do not match!", Toast.LENGTH_LONG).show();
         }
-
-        auth.createUserWithEmailAndPassword(email, pw).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
-                    Log.d(LOG_TAG, "User created successfully");
-                    startAppnimal();
-                } else {
-                    Log.d(LOG_TAG, "User was't created successfully:", task.getException());
-                    Toast.makeText(RegisterActivity.this, "Error: creating user", Toast.LENGTH_LONG).show();
+        if (username.equals("") || email.equals("") || pw.equals("") || pwConfirm.equals("")) {
+            Toast.makeText(RegisterActivity.this, "Something is missing!", Toast.LENGTH_LONG).show();
+        } else {
+            auth.createUserWithEmailAndPassword(email, pw).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Log.d(LOG_TAG, "User created successfully");
+                        startAppnimal();
+                    } else {
+                        Log.d(LOG_TAG, "User was't created successfully:", task.getException());
+                        Toast.makeText(RegisterActivity.this, "Error: creating user", Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }
 
