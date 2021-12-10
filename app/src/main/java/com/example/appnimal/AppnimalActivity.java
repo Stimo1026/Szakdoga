@@ -11,6 +11,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -24,7 +26,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class AppnimalActivity extends AppCompatActivity {
     private static final String LOG_TAG = RegisterActivity.class.getName();
     private FirebaseUser user;
-    
+    private FirebaseAuth auth;
+
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
@@ -39,6 +42,8 @@ public class AppnimalActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.draw_layout);
         toolbar = findViewById(R.id.toolbar);
 
+        auth = FirebaseAuth.getInstance();
+
         setSupportActionBar(toolbar);
 
         navigationView.bringToFront();
@@ -50,7 +55,8 @@ public class AppnimalActivity extends AppCompatActivity {
         setStatusBarcolor();
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        //navigationView.setNavigationItemSelectedListener();
+
+        navigationView.setNavigationItemSelectedListener(this::onOptionsItemSelected);
 
         if (user != null) {
             Log.d(LOG_TAG, "Authenticated user!");
@@ -59,6 +65,47 @@ public class AppnimalActivity extends AppCompatActivity {
             finish();
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.nav_home:
+
+                return true;
+
+            case R.id.nav_calendar:
+
+                return true;
+
+            case R.id.nav_walk:
+
+                return true;
+
+            case R.id.nav_profile:
+
+                return true;
+
+            case R.id.nav_settings:
+
+                return true;
+
+            case R.id.nav_logout:
+                signOut();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     @Override
     public void onBackPressed(){
@@ -71,6 +118,11 @@ public class AppnimalActivity extends AppCompatActivity {
 
     }
 
+    private void signOut(){
+       auth.signOut();
+       finish();
+    }
+
     private void setStatusBarcolor(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             getWindow().setStatusBarColor(getResources().getColor(R.color.transparent, this.getTheme()));
@@ -79,9 +131,4 @@ public class AppnimalActivity extends AppCompatActivity {
         }
     }
 
-
-/*
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem){
-        return true;
-    }*/
 }
