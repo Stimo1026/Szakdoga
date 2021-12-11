@@ -121,28 +121,30 @@ public class AppnimalActivity extends AppCompatActivity {
         Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
     }
 
-    public void openCalendar() {
+    private void openCalendar() {
         Intent intent = new Intent(this, CalendarActivity.class);
         startActivity(intent);
+        finish();
 
     }
 
-    public void openwalks() {
+    private void openwalks() {
         Intent intent = new Intent(this, WalksActivity.class);
         startActivity(intent);
+        finish();
 
     }
 
-    public void openSettings() {
+    private void openSettings() {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
-
+        finish();
     }
 
-    public void openProfile() {
+    private void openProfile() {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
-
+        finish();
     }
 
     private void setStatusBarcolor() {
