@@ -53,10 +53,10 @@ public class WalksActivity extends AppCompatActivity {
                 break;
 
             case R.id.nav_calendar:
+                openCalendar();
                 break;
 
             case R.id.nav_walk:
-                openWalks();
                 break;
 
             case R.id.nav_profile:

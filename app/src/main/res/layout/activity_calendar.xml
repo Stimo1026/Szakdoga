@@ -7,13 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".CalendarActivity">
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <include
                 android:id="@+id/toolbar"
@@ -23,18 +21,18 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar">
+                android:orientation="horizontal">
 
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/transparent"
-                    android:text="<-"
+                    android:text="@string/left_arrow"
                     android:textColor="@color/blue"
                     android:textSize="20sp"
-                    android:textStyle="bold">
+                    android:textStyle="bold"
+                    android:onClick="prevMonth">
 
                 </Button>
 
@@ -53,10 +51,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/transparent"
-                    android:text="->"
+                    android:text="@string/right_arrow"
                     android:textColor="@color/blue"
                     android:textSize="20sp"
-                    android:textStyle="bold">
+                    android:textStyle="bold"
+                    android:onClick="nextMonth">
 
                 </Button>
 
@@ -68,7 +67,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
                 tools:layout_editor_absoluteX="0dp">
 
                 <TextView
@@ -151,19 +149,13 @@
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="8dp"
                 android:id="@+id/CalendarRecycleView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-            </androidx.recyclerview.widget.RecyclerView>
+                android:layout_height="match_parent" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            
-    </ScrollView>
+        </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
