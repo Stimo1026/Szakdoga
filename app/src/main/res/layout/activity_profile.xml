@@ -18,65 +18,62 @@
 
             <include
                 android:id="@+id/toolbar"
-                layout="@layout/toolbar"
-                />
+                layout="@layout/toolbar" />
 
             <RelativeLayout
-                android:background="@color/grey"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:padding="20dp"
-                >
+                android:background="@color/grey"
+                android:padding="20dp">
 
                 <ImageView
                     android:id="@+id/profil_image"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/profile"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/profile" />
+
                 <TextView
                     android:id="@+id/full_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Temp Fullname"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/oswald"
-                    android:textStyle="bold"
-                    android:layout_toRightOf="@+id/profil_image"
                     android:layout_centerVertical="true"
-                    android:includeFontPadding="false"
                     android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/profil_image"
+                    android:fontFamily="@font/oswald"
+                    android:includeFontPadding="false"
+                    android:text="Temp Fullname"
                     android:textAllCaps="true"
-                    />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/full_name"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/profil_image"
+                    android:includeFontPadding="false"
                     android:text="temp_username"
                     android:textSize="13sp"
-                    android:includeFontPadding="false"
-                    android:textStyle="bold"
-                    android:layout_below="@id/full_name"
-                    android:layout_toRightOf="@+id/profil_image"
-                    android:layout_marginLeft="10dp"
-                    />
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_marginTop="-100dp">
+                android:layout_marginTop="-80dp"
+                android:padding="10dp">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="125dp"
+                    android:layout_margin="10dp"
                     android:layout_weight="1"
                     app:cardBackgroundColor="@color/grey"
-                    app:cardElevation="10dp"
-                    android:layout_margin="10dp">
-                    
+                    app:cardElevation="12dp">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -92,41 +89,39 @@
                             android:id="@+id/walks_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3"
-                            android:textStyle="bold"
-                            android:textSize="24sp"
-                            android:fontFamily="@font/oswald"
                             android:layout_centerInParent="true"
+                            android:fontFamily="@font/oswald"
                             android:includeFontPadding="false"
-                            />
+                            android:text="3"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/walks_desc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:includeFontPadding="false"
-                            android:text="Walks"
-                            android:textSize="14sp"
                             android:layout_below="@id/walks_number"
                             android:layout_centerHorizontal="true"
-                            />
-                        
+                            android:includeFontPadding="false"
+                            android:text="Walks"
+                            android:textSize="14sp" />
+
                     </RelativeLayout>
-                    
+
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="125dp"
+                    android:layout_margin="10dp"
                     android:layout_weight="1"
                     app:cardBackgroundColor="@color/grey"
-                    app:cardElevation="10dp"
-                    android:layout_margin="10dp">
+                    app:cardElevation="10dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="10dp">
+                        android:padding="12dp">
 
                         <ImageView
                             android:layout_width="30dp"
@@ -138,24 +133,22 @@
                             android:id="@+id/pets_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1"
-                            android:textStyle="bold"
-                            android:textSize="24sp"
-                            android:fontFamily="@font/oswald"
                             android:layout_centerInParent="true"
+                            android:fontFamily="@font/oswald"
                             android:includeFontPadding="false"
-                            />
+                            android:text="1"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/pets_desc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:includeFontPadding="false"
-                            android:text="Pets"
-                            android:textSize="14sp"
                             android:layout_below="@id/pets_number"
                             android:layout_centerHorizontal="true"
-                            />
+                            android:includeFontPadding="false"
+                            android:text="Pets"
+                            android:textSize="14sp" />
 
                     </RelativeLayout>
 
@@ -170,70 +163,81 @@
                 android:padding="20dp">
 
                 <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Full Name:"
-                android:layout_marginBottom="10dp">
-
-                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Temp Fullname"
-                    android:drawableLeft="@drawable/fullname_icoon"
-                    android:drawablePadding="10dp"
-                    android:drawableTint="@color/white"
-                    />
-
-            </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Username:"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:hint="Full Name:">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Temp Username"
+                        android:drawableLeft="@drawable/fullname_icoon"
+                        android:drawablePadding="10dp"
+                        android:drawableTint="@color/white"
+                        android:inputType="text"
+                        android:text="Temp Fullname" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="Username:">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/username_icon"
                         android:drawablePadding="10dp"
                         android:drawableTint="@color/white"
-                        />
+                        android:inputType="text"
+                        android:text="Temp Username" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="E-Mail:"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:hint="E-Mail:">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Temp Fullname"
                         android:drawableLeft="@drawable/email_icon"
                         android:drawablePadding="10dp"
                         android:drawableTint="@color/white"
-                        />
+                        android:inputType="textEmailAddress"
+                        android:text="temp@email.com" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password:"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:hint="Password:">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:inputType="textPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Temp Password"
                         android:drawableLeft="@drawable/password_icon"
                         android:drawablePadding="10dp"
                         android:drawableTint="@color/white"
-                        />
+                        android:inputType="textPassword"
+                        android:text="Temp Password" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/grey"
+                    android:text="Update"
+                    android:textStyle="bold"
+
+                    />
 
             </LinearLayout>
 
