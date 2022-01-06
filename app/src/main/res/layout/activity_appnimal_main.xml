@@ -6,18 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".AppnimalActivity"
-    >
+    tools:context=".AppnimalActivity">
     <!--tools:openDrawer="start"-->
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <include
                 android:id="@+id/toolbar"
@@ -25,17 +23,250 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="250dp"
-                android:layout_marginBottom="656dp"
-                android:text="@string/login_succesful"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:fontFamily="@font/oswald"
+                android:text="APPNIMAL"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.666"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="195dp"
+                android:text="For You and your Pets!"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="36dp"
+                android:contentDescription="cat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:srcCompat="@drawable/cat_main" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:elevation="3dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/topTextWalk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="7dp"
+                            android:text="Go for"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/imageWalk"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_below="@+id/topTextWalk"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/walking_dog" />
+
+                        <TextView
+                            android:id="@+id/bottomTextWalk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imageWalk"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="7dp"
+                            android:fontFamily="@font/oswald"
+                            android:text="Walks"
+                            android:textSize="24sp" />
+
+
+                    </RelativeLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:elevation="3dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/topTextPet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="7dp"
+                            android:text="Add your"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/imagePet"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_below="@+id/topTextPet"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/owner" />
+
+                        <TextView
+                            android:id="@+id/bottomTextPet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imagePet"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="7dp"
+                            android:fontFamily="@font/oswald"
+                            android:text="Pets"
+                            android:textSize="24sp" />
+
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:elevation="3dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/topTextRemind"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="7dp"
+                            android:text="Set"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/imageRemind"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_below="@+id/topTextRemind"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/clock" />
+
+                        <TextView
+                            android:id="@+id/bottomTextRemind"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imageRemind"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="7dp"
+                            android:fontFamily="@font/oswald"
+                            android:text="Reminders"
+                            android:textSize="24sp" />
+
+
+                    </RelativeLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:elevation="3dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/topTextPaws"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="7dp"
+                            android:text="Trace your"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/imagePaws"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_below="@+id/topTextPaws"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/paw" />
+
+                        <TextView
+                            android:id="@+id/bottomTextPaws"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imagePaws"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="7dp"
+                            android:fontFamily="@font/oswald"
+                            android:text="Steps"
+                            android:textSize="24sp" />
+
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

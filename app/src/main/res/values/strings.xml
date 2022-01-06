@@ -10,7 +10,7 @@
     <string name="registration">You can register here:</string>
     <string name="emailaddress">Email address</string>
     <string name="password_again">Password again</string>
-    <string name="login_succesful">login succesful</string>
+    <string name="login_succesful">login successful</string>
     <string name="login_with_google">Login With Google</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

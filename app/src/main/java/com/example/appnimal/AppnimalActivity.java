@@ -25,6 +25,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class AppnimalActivity extends AppCompatActivity {
     private static final String LOG_TAG = RegisterActivity.class.getName();
     private FirebaseUser user;
@@ -47,6 +49,7 @@ public class AppnimalActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,

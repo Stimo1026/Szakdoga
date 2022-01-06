@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class SettingsActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
@@ -32,7 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         setSupportActionBar(toolbar);
-
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
