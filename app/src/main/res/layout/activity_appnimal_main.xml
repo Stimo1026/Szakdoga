@@ -3,10 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/draw_layout"
+    android:background="@color/brightrgrey"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".AppnimalActivity">
+    tools:context=".AppnimalActivity"
+    >
     <!--tools:openDrawer="start"-->
     <ScrollView
         android:layout_width="wrap_content"
@@ -277,6 +279,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/brightrgrey"
+        android:outlineSpotShadowColor="#1f1f1f"
         app:headerLayout="@layout/header"
         app:menu="@menu/main_menu" />
 

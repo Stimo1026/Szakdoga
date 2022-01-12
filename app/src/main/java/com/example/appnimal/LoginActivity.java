@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextTextPassword = findViewById(R.id.editTextTextPassword);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                //ez errort ir de ne javitsd ki igy mukodik
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
