@@ -5,7 +5,8 @@
     android:id="@+id/draw_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CalendarActivity">
+    tools:context=".CalendarActivity"
+    android:background="@color/brightrgrey">
 
 
     <LinearLayout
@@ -18,6 +19,8 @@
             layout="@layout/toolbar" />
 
         <LinearLayout
+            android:padding="5dp"
+            android:background="@color/grey"
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,7 +33,7 @@
                 android:background="@color/transparent"
                 android:onClick="prevMonth"
                 android:text="@string/left_arrow"
-                android:textColor="@color/grey"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold">
 
@@ -53,7 +56,7 @@
                 android:background="@color/transparent"
                 android:onClick="nextMonth"
                 android:text="@string/right_arrow"
-                android:textColor="@color/grey"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold">
 
@@ -63,11 +66,14 @@
         </LinearLayout>
 
         <LinearLayout
+            android:padding="5dp"
+            android:background="@color/grey"
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            tools:layout_editor_absoluteX="0dp">
+            tools:layout_editor_absoluteX="0dp"
+            >
 
             <TextView
                 android:layout_width="0dp"
@@ -76,7 +82,9 @@
                 android:text="SUN"
                 android:textAlignment="center"
                 android:textColor="@color/grey"
-                android:textSize="16sp">
+                android:textSize="16sp"
+
+                >
 
             </TextView>
 
@@ -163,6 +171,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/header"
+        android:background="@color/brightrgrey"
         app:menu="@menu/main_menu" />
 
 

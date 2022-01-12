@@ -13,11 +13,18 @@
         android:orientation="vertical"
         android:padding="30dp">
 
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="65dp"
+            android:padding="5dp"
+            android:src="@drawable/back_icon"
+            android:onClick="cancel"/>
+
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:fontFamily="@font/oswald"
             android:text="@string/loginText"
             android:textAllCaps="true"
@@ -39,13 +46,14 @@
                 android:layout_height="wrap_content"
 
                 android:hint="E-Mail:"
-                app:boxStrokeColor="@color/black"
+                app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="2dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/white"
                 app:hintTextColor="@color/white"
                 app:startIconDrawable="@drawable/email_icon"
                 app:startIconTint="@color/white"
+                android:layout_marginBottom="5dp"
 
                 >
 
@@ -53,6 +61,7 @@
                     android:id="@+id/editTextTextPersonName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:drawablePadding="5dp"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -64,7 +73,7 @@
                 android:layout_height="wrap_content"
 
                 android:hint="Password:"
-                app:boxStrokeColor="@color/black"
+                app:boxStrokeColor="@color/grey"
                 app:boxStrokeWidth="2dp"
                 app:endIconMode="password_toggle"
                 app:endIconTint="@color/white"
@@ -78,6 +87,7 @@
                     android:id="@+id/editTextTextPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:drawablePadding="5dp"
                     android:inputType="textPassword"
                     android:textColor="@color/white" />
 
@@ -117,32 +127,20 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
                 android:background="@color/grey"
-                android:text="LOGIN"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
                 android:onClick="login"
-                />
+                android:text="LOGIN"
+                android:textStyle="bold" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
                 android:background="@color/grey"
-                android:text="LOGIN WITH GOOGLE"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
                 android:onClick="loginWithGoogle"
-                />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/grey"
-                android:text="CANCEL"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:onClick="cancel"
-                />
+                android:text="LOGIN WITH GOOGLE"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
