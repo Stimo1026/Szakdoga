@@ -81,7 +81,7 @@
                 android:layout_weight="1"
                 android:text="SUN"
                 android:textAlignment="center"
-                android:textColor="@color/grey"
+                android:textColor="@color/white"
                 android:textSize="16sp"
 
                 >
@@ -94,7 +94,7 @@
                 android:layout_weight="1"
                 android:text="MON"
                 android:textAlignment="center"
-                android:textColor="@color/grey"
+                android:textColor="@color/white"
                 android:textSize="16sp">
 
             </TextView>
@@ -105,7 +105,7 @@
                 android:layout_weight="1"
                 android:text="TUE"
                 android:textAlignment="center"
-                android:textColor="@color/grey"
+                android:textColor="@color/white"
                 android:textSize="16sp">
 
             </TextView>
@@ -116,7 +116,7 @@
                 android:layout_weight="1"
                 android:text="WED"
                 android:textAlignment="center"
-                android:textColor="@color/grey"
+                android:textColor="@color/white"
                 android:textSize="16sp">
 
             </TextView>
@@ -127,7 +127,7 @@
                 android:layout_weight="1"
                 android:text="THU"
                 android:textAlignment="center"
-                android:textColor="@color/grey"
+                android:textColor="@color/white"
                 android:textSize="16sp">
 
             </TextView>
@@ -138,7 +138,7 @@
                 android:layout_weight="1"
                 android:text="FRI"
                 android:textAlignment="center"
-                android:textColor="@color/grey"
+                android:textColor="@color/white"
                 android:textSize="16sp">
 
             </TextView>
@@ -149,7 +149,7 @@
                 android:layout_weight="1"
                 android:text="SAT"
                 android:textAlignment="center"
-                android:textColor="@color/grey"
+                android:textColor="@color/white"
                 android:textSize="16sp">
 
             </TextView>

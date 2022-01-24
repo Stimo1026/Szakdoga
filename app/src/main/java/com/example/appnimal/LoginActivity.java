@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText editTextTextPersonName;
     EditText editTextTextPassword;
     private static final int RC_SIGN_IN = 123;
+    private Toast mToast = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +73,10 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             startAppnimal();
                         } else {
+                            if (mToast != null) mToast.cancel();
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(LoginActivity.this, "Sign in with Google failed!", Toast.LENGTH_LONG).show();
+                            mToast = Toast.makeText(LoginActivity.this, "Sign in with Google failed!", Toast.LENGTH_LONG);
+                            mToast.show();
                         }
                     }
                 });
@@ -94,7 +97,9 @@ public class LoginActivity extends AppCompatActivity {
         String pw = editTextTextPassword.getText().toString();
 
         if(pw.equals("") || uname.equals("")){
-            Toast.makeText(LoginActivity.this, "Something is missing!", Toast.LENGTH_LONG).show();
+            if (mToast != null) {mToast.cancel();}
+            mToast = Toast.makeText(LoginActivity.this, "Something is missing!", Toast.LENGTH_LONG);
+            mToast.show();
         }else{
             auth.signInWithEmailAndPassword(uname, pw).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
@@ -102,7 +107,9 @@ public class LoginActivity extends AppCompatActivity {
                     if(task.isSuccessful()){
                         startAppnimal();
                     } else {
-                        Toast.makeText(LoginActivity.this, "Invalid email or password!", Toast.LENGTH_LONG).show();
+                        if (mToast != null) mToast.cancel();
+                        mToast = Toast.makeText(LoginActivity.this, "Invalid email or password!", Toast.LENGTH_LONG);
+                        mToast.show();
                     }
                 }
             });

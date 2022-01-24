@@ -24,6 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText passwordEditText;
     EditText passwordConfirmEditText;
     private FirebaseAuth auth;
+    private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,20 +58,26 @@ public class RegisterActivity extends AppCompatActivity {
         String pwConfirm = passwordConfirmEditText.getText().toString();
 
         if (!pw.equals(pwConfirm)) {
-            Toast.makeText(RegisterActivity.this, "Password do not match!", Toast.LENGTH_LONG).show();
+            if (mToast != null) {mToast.cancel();}
+            mToast = Toast.makeText(RegisterActivity.this, "Password do not match!", Toast.LENGTH_LONG);
+            mToast.show();
         }
         if (username.equals("") || email.equals("") || pw.equals("") || pwConfirm.equals("")) {
-            Toast.makeText(RegisterActivity.this, "Something is missing!", Toast.LENGTH_LONG).show();
+            if (mToast != null) {mToast.cancel();}
+            mToast = Toast.makeText(RegisterActivity.this, "Something is missing!", Toast.LENGTH_LONG);
+            mToast.show();
         } else {
             auth.createUserWithEmailAndPassword(email, pw).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Log.d(LOG_TAG, "User created successfully");
+                        //Log.d(LOG_TAG, "User created successfully");
                         startAppnimal();
                     } else {
-                        Log.d(LOG_TAG, "User was't created successfully:", task.getException());
-                        Toast.makeText(RegisterActivity.this, "Error: creating user", Toast.LENGTH_LONG).show();
+                        //Log.d(LOG_TAG, "User was't created successfully:", task.getException());
+                        if (mToast != null) {mToast.cancel();}
+                        mToast = Toast.makeText(RegisterActivity.this, "Error: creating user", Toast.LENGTH_LONG);
+                        mToast.show();
                     }
                 }
             });
