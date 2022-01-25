@@ -77,7 +77,6 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        storeNewUser();
                         //Log.d(LOG_TAG, "User created successfully");
                         startAppnimal();
                     } else {
@@ -93,12 +92,6 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void storeNewUser() {
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("User");
 
-        reference.setValue("First record!");
-
-    }
 }
 

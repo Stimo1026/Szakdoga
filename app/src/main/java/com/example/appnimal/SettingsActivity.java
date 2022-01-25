@@ -70,6 +70,10 @@ public class SettingsActivity extends AppCompatActivity {
             case R.id.nav_settings:
                 break;
 
+            case R.id.nav_pets:
+                openPets();
+                break;
+
             case R.id.nav_logout:
                 signOut();
                 break;
@@ -95,6 +99,13 @@ public class SettingsActivity extends AppCompatActivity {
         auth.signOut();
         finish();
         Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
+    }
+
+    private void openPets() {
+        Intent intent = new Intent(this, PetsActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 
     private void openCalendar() {

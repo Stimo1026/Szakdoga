@@ -22,6 +22,10 @@
             android:title="Profile"
             android:icon="@drawable/profile"/>
         <item
+            android:id="@+id/nav_pets"
+            android:title="Pets"
+            android:icon="@drawable/pets_icon"/>
+        <item
             android:id="@+id/nav_settings"
             android:title="Settings"
             android:icon="@drawable/settings"/>

@@ -17,6 +17,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
@@ -58,6 +60,8 @@ public class AppnimalActivity extends AppCompatActivity {
 
         navigationView.setCheckedItem(R.id.nav_home);
 
+        //storeNewUser();
+
         if (user != null) {
             Log.d(LOG_TAG, "Authenticated user!");
         } else {
@@ -89,6 +93,11 @@ public class AppnimalActivity extends AppCompatActivity {
             case R.id.nav_settings:
                 openSettings();
                 break;
+
+            case R.id.nav_pets:
+                openPets();
+                break;
+
 
             case R.id.nav_logout:
                 signOut();
@@ -143,12 +152,26 @@ public class AppnimalActivity extends AppCompatActivity {
         finish();
     }
 
+    private void openPets() {
+        Intent intent = new Intent(this, PetsActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private void setStatusBarcolor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.transparent, this.getTheme()));
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.transparent));
         }
+    }
+
+    private void storeNewUser() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.setValue("Hello, World!");
+
     }
 
 }

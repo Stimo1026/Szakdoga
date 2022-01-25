@@ -16,17 +16,18 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
-public class ProfileActivity extends AppCompatActivity {
+public class PetsActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
     private FirebaseAuth auth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_pets);
 
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.draw_layout);
@@ -43,8 +44,6 @@ public class ProfileActivity extends AppCompatActivity {
         toggle.syncState();
         navigationView.setCheckedItem(R.id.nav_profile);
         navigationView.setNavigationItemSelectedListener(this::onOptionsItemSelected);
-
-
     }
 
     @Override
@@ -64,6 +63,7 @@ public class ProfileActivity extends AppCompatActivity {
                 break;
 
             case R.id.nav_profile:
+                openProfile();
                 break;
 
             case R.id.nav_settings:
@@ -71,7 +71,6 @@ public class ProfileActivity extends AppCompatActivity {
                 break;
 
             case R.id.nav_pets:
-                openPets();
                 break;
 
             case R.id.nav_logout:
@@ -81,25 +80,6 @@ public class ProfileActivity extends AppCompatActivity {
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-
-    @Override
-    public void onBackPressed() {
-
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-
-    }
-
-    private void openPets() {
-        Intent intent = new Intent(this, PetsActivity.class);
-        startActivity(intent);
-        finish();
-
     }
 
     private void signOut() {

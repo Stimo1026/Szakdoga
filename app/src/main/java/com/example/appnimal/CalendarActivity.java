@@ -132,6 +132,10 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
                 openSettings();
                 break;
 
+            case R.id.nav_pets:
+                openPets();
+                break;
+
             case R.id.nav_logout:
                 signOut();
                 break;
@@ -150,6 +154,12 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         } else {
             super.onBackPressed();
         }
+
+    }
+    private void openPets() {
+        Intent intent = new Intent(this, PetsActivity.class);
+        startActivity(intent);
+        finish();
 
     }
 
