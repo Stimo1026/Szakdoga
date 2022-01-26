@@ -10,31 +10,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Appnimal">
         <activity
-            android:name="com.appnimal.activities.PetsActivity"
+            android:name=".PetsActivity"
             android:exported="false" />
         <activity
-            android:name="com.appnimal.activities.SettingsActivity"
+            android:name=".SettingsActivity"
             android:exported="false" />
         <activity
-            android:name="com.appnimal.activities.ProfileActivity"
+            android:name=".ProfileActivity"
             android:exported="false" />
         <activity
-            android:name="com.appnimal.activities.WalksActivity"
+            android:name=".WalksActivity"
             android:exported="false" />
         <activity
-            android:name="com.appnimal.activities.calendar.CalendarActivity"
+            android:name=".CalendarActivity"
             android:exported="false" />
         <activity
-            android:name="com.appnimal.activities.AppnimalActivity"
+            android:name=".AppnimalActivity"
             android:exported="false" />
         <activity
-            android:name="com.appnimal.reglog.LoginActivity"
+            android:name=".LoginActivity"
             android:exported="false" />
         <activity
-            android:name="com.appnimal.reglog.RegisterActivity"
+            android:name=".RegisterActivity"
             android:exported="false" />
         <activity
-            android:name="com.appnimal.activities.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

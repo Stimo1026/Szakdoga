@@ -1,59 +1,81 @@
-package com.appnimal.activities;
+package com.example.appnimal;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.appnimal.activities.calendar.CalendarActivity;
-import com.example.appnimal.R;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
-public class WalksActivity extends AppCompatActivity {
+public class AppnimalActivity extends AppCompatActivity {
+    private static final String LOG_TAG = RegisterActivity.class.getName();
+    private FirebaseUser user;
+    private FirebaseAuth auth;
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-    private FirebaseAuth auth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_walks);
+        setContentView(R.layout.activity_appnimal_main);
 
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.draw_layout);
         toolbar = findViewById(R.id.toolbar);
+
         auth = FirebaseAuth.getInstance();
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setCheckedItem(R.id.nav_walk);
+        setStatusBarcolor();
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
         navigationView.setNavigationItemSelectedListener(this::onOptionsItemSelected);
 
+        navigationView.setCheckedItem(R.id.nav_home);
+
+        //storeNewUser();
+
+        if (user != null) {
+            Log.d(LOG_TAG, "Authenticated user!");
+        } else {
+            Log.d(LOG_TAG, "Unauthenticated user!");
+            finish();
+        }
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.nav_home:
-                openHome();
                 break;
 
             case R.id.nav_calendar:
@@ -61,6 +83,7 @@ public class WalksActivity extends AppCompatActivity {
                 break;
 
             case R.id.nav_walk:
+                openWalks();
                 break;
 
             case R.id.nav_profile:
@@ -74,6 +97,7 @@ public class WalksActivity extends AppCompatActivity {
             case R.id.nav_pets:
                 openPets();
                 break;
+
 
             case R.id.nav_logout:
                 signOut();
@@ -94,6 +118,7 @@ public class WalksActivity extends AppCompatActivity {
             super.onBackPressed();
             auth.signOut();
             Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
+
         }
 
     }
@@ -104,29 +129,18 @@ public class WalksActivity extends AppCompatActivity {
         Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
     }
 
-    private void openPets() {
-        Intent intent = new Intent(this, PetsActivity.class);
-        startActivity(intent);
-        finish();
-
-    }
-
     private void openCalendar() {
         Intent intent = new Intent(this, CalendarActivity.class);
         startActivity(intent);
         finish();
-    }
 
-    private void openHome() {
-        Intent intent = new Intent(this, AppnimalActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     private void openWalks() {
         Intent intent = new Intent(this, WalksActivity.class);
         startActivity(intent);
         finish();
+
     }
 
     private void openSettings() {
@@ -140,4 +154,27 @@ public class WalksActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    private void openPets() {
+        Intent intent = new Intent(this, PetsActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void setStatusBarcolor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.transparent, this.getTheme()));
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.transparent));
+        }
+    }
+
+    private void storeNewUser() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.setValue("Hello, World!");
+
+    }
+
 }

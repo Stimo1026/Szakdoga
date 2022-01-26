@@ -1,4 +1,4 @@
-package com.appnimal.activities.calendar;
+package com.example.appnimal;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,8 +6,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.appnimal.R;
 
 import java.util.ArrayList;
 

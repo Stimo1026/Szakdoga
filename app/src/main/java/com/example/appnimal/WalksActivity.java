@@ -1,4 +1,4 @@
-package com.appnimal.activities;
+package com.example.appnimal;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,25 +11,22 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.appnimal.activities.calendar.CalendarActivity;
-import com.example.appnimal.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
-public class PetsActivity extends AppCompatActivity {
+public class WalksActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
     private FirebaseAuth auth;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pets);
+        setContentView(R.layout.activity_walks);
 
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.draw_layout);
@@ -44,8 +41,9 @@ public class PetsActivity extends AppCompatActivity {
 
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setCheckedItem(R.id.nav_pets);
+        navigationView.setCheckedItem(R.id.nav_walk);
         navigationView.setNavigationItemSelectedListener(this::onOptionsItemSelected);
+
     }
 
     @Override
@@ -61,7 +59,6 @@ public class PetsActivity extends AppCompatActivity {
                 break;
 
             case R.id.nav_walk:
-                openWalks();
                 break;
 
             case R.id.nav_profile:
@@ -73,6 +70,7 @@ public class PetsActivity extends AppCompatActivity {
                 break;
 
             case R.id.nav_pets:
+                openPets();
                 break;
 
             case R.id.nav_logout:
@@ -84,6 +82,7 @@ public class PetsActivity extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public void onBackPressed() {
 
@@ -93,7 +92,6 @@ public class PetsActivity extends AppCompatActivity {
             super.onBackPressed();
             auth.signOut();
             Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
-
         }
 
     }
@@ -102,6 +100,13 @@ public class PetsActivity extends AppCompatActivity {
         auth.signOut();
         finish();
         Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
+    }
+
+    private void openPets() {
+        Intent intent = new Intent(this, PetsActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 
     private void openCalendar() {
