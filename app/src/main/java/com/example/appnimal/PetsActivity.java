@@ -42,7 +42,7 @@ public class PetsActivity extends AppCompatActivity {
 
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setCheckedItem(R.id.nav_profile);
+        navigationView.setCheckedItem(R.id.nav_pets);
         navigationView.setNavigationItemSelectedListener(this::onOptionsItemSelected);
     }
 

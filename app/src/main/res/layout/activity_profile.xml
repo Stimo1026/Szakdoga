@@ -5,8 +5,8 @@
     android:id="@+id/draw_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity"
-    android:background="@color/brightrgrey">
+    android:background="@color/brightrgrey"
+    tools:context=".ProfileActivity">
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -165,18 +165,17 @@
                 android:padding="20dp">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:hint="Full Name:"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:boxStrokeColor="@color/black"
                     app:boxStrokeWidth="2dp"
                     app:endIconMode="clear_text"
                     app:endIconTint="@color/white"
                     app:hintTextColor="@color/white"
-                    app:startIconTint="@color/white"
-                    >
+                    app:startIconTint="@color/white">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -190,11 +189,11 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:hint="Username:"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:boxStrokeColor="@color/black"
                     app:boxStrokeWidth="2dp"
                     app:endIconMode="clear_text"
@@ -214,11 +213,11 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:hint="E-Mail:"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:boxStrokeColor="@color/black"
                     app:boxStrokeWidth="2dp"
                     app:endIconMode="clear_text"
@@ -238,11 +237,11 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:hint="Password:"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:boxStrokeColor="@color/black"
                     app:boxStrokeWidth="2dp"
                     app:endIconMode="clear_text"
@@ -257,15 +256,14 @@
                         android:drawablePadding="5dp"
                         android:drawableTint="@color/white"
                         android:inputType="textPassword"
-                        android:text="Temp Password"
-                        />
+                        android:text="Temp Password" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
-                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:background="@color/grey"
                     android:text="Update"
                     android:textStyle="bold"
@@ -282,8 +280,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/header"
         android:background="@color/brightrgrey"
+        app:headerLayout="@layout/header"
         app:menu="@menu/main_menu" />
 
 
