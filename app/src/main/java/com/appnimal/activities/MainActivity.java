@@ -1,13 +1,16 @@
-package com.example.appnimal;
+package com.appnimal.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
+
+import com.appnimal.reglog.LoginActivity;
+import com.appnimal.reglog.RegisterActivity;
+import com.example.appnimal.R;
 
 public class MainActivity extends AppCompatActivity {
 

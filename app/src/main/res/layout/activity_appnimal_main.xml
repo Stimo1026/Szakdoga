@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/brightrgrey"
-    tools:context=".AppnimalActivity">
+    tools:context="com.appnimal.activities.AppnimalActivity">
     <!--tools:openDrawer="start"-->
     <ScrollView
         android:layout_width="wrap_content"
