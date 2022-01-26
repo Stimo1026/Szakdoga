@@ -83,7 +83,7 @@ public class AppnimalActivity extends AppCompatActivity {
                 break;
 
             case R.id.nav_walk:
-                openwalks();
+                openWalks();
                 break;
 
             case R.id.nav_profile:
@@ -116,6 +116,9 @@ public class AppnimalActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            auth.signOut();
+            Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
+
         }
 
     }
@@ -133,7 +136,7 @@ public class AppnimalActivity extends AppCompatActivity {
 
     }
 
-    private void openwalks() {
+    private void openWalks() {
         Intent intent = new Intent(this, WalksActivity.class);
         startActivity(intent);
         finish();

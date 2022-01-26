@@ -82,6 +82,20 @@ public class PetsActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+            auth.signOut();
+            Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
+
+        }
+
+    }
+
     private void signOut() {
         auth.signOut();
         finish();

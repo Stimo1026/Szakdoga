@@ -90,6 +90,8 @@ public class WalksActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            auth.signOut();
+            Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
         }
 
     }
