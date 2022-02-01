@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +28,9 @@ public class PetsActivity extends AppCompatActivity {
     Toolbar toolbar;
     private FirebaseAuth auth;
     public static ArrayList<Pet> pets = new ArrayList<Pet>();
-
+    private Toast mToast;
+    private RecyclerView mRecycleView;
+    private PetAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +52,17 @@ public class PetsActivity extends AppCompatActivity {
         toggle.syncState();
         navigationView.setCheckedItem(R.id.nav_pets);
         navigationView.setNavigationItemSelectedListener(this::onOptionsItemSelected);
+
+
+        mRecycleView = findViewById(R.id.petRec);
+        mRecycleView.setLayoutManager(new GridLayoutManager(this, 1));
+
+        mAdapter = new PetAdapter(this, pets);
+        mRecycleView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -100,8 +115,17 @@ public class PetsActivity extends AppCompatActivity {
     }
 
     public void openAddPet(View view) {
-        Intent intent = new Intent(this, PetAddActivity.class);
-        startActivity(intent);
+
+        if (PetsActivity.pets.size() >= 4) {
+            if (mToast != null) {
+                mToast.cancel();
+            }
+            mToast = Toast.makeText(PetsActivity.this, "You already have 4 pets!", Toast.LENGTH_LONG);
+            mToast.show();
+        } else {
+            Intent intent = new Intent(this, PetAddActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void signOut() {

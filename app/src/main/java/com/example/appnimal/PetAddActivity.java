@@ -39,7 +39,6 @@ public class PetAddActivity extends AppCompatActivity {
             age = Integer.parseInt(ageEditText.getText().toString());
         }
 
-
         if (name.equals("") || breed.equals("") || species.equals("") || age == -42) {
             if (mToast != null) {
                 mToast.cancel();
@@ -55,8 +54,8 @@ public class PetAddActivity extends AppCompatActivity {
         } else {
             Pet pet = new Pet(name, species, breed, age);
             PetsActivity.pets.add(pet);
+            finish();
         }
-
 
     }
 
