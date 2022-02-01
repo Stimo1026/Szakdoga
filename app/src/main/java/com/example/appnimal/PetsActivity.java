@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class PetsActivity extends AppCompatActivity {
@@ -23,6 +24,7 @@ public class PetsActivity extends AppCompatActivity {
     NavigationView navigationView;
     Toolbar toolbar;
     private FirebaseAuth auth;
+    public static ArrayList<Pet> pets = new ArrayList<Pet>();
 
 
     @Override
