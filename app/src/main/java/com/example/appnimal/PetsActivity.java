@@ -3,6 +3,7 @@ package com.example.appnimal;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -13,6 +14,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -31,12 +33,13 @@ public class PetsActivity extends AppCompatActivity {
     private Toast mToast;
     private RecyclerView mRecycleView;
     private PetAdapter mAdapter;
+    private CardView cardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pets);
-
+        cardView = findViewById(R.id.cardView);
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.draw_layout);
         toolbar = findViewById(R.id.toolbar);
@@ -61,8 +64,32 @@ public class PetsActivity extends AppCompatActivity {
         mRecycleView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
 
+        if (PetsActivity.pets.size() >= 4) {
+            cardView.setVisibility(View.INVISIBLE);
+            cardView.getLayoutParams().height = 0;
+            cardView.setClickable(false);
+        }else{
+            cardView.setVisibility(View.VISIBLE);
+            cardView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            cardView.setClickable(true);
+        }
+
     }
 
+    @Override
+    protected void onResume() {
+        mAdapter.notifyDataSetChanged();
+        if (PetsActivity.pets.size() >= 4) {
+            cardView.setVisibility(View.INVISIBLE);
+            cardView.getLayoutParams().height = 0;
+            cardView.setClickable(false);
+        }else{
+            cardView.setVisibility(View.VISIBLE);
+            cardView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            cardView.setClickable(true);
+        }
+        super.onResume();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
