@@ -23,7 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Objects;
 
 public class AppnimalActivity extends AppCompatActivity {
-    private static final String LOG_TAG = RegisterActivity.class.getName();
     private FirebaseUser user;
     private FirebaseAuth auth;
 
@@ -61,13 +60,6 @@ public class AppnimalActivity extends AppCompatActivity {
         navigationView.setCheckedItem(R.id.nav_home);
 
         //storeNewUser();
-
-        if (user != null) {
-            Log.d(LOG_TAG, "Authenticated user!");
-        } else {
-            Log.d(LOG_TAG, "Unauthenticated user!");
-            finish();
-        }
     }
 
 
@@ -117,7 +109,7 @@ public class AppnimalActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
             auth.signOut();
-            Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
+            makeToast("Log out succesfull!");
 
         }
 
@@ -126,7 +118,7 @@ public class AppnimalActivity extends AppCompatActivity {
     private void signOut() {
         auth.signOut();
         finish();
-        Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
+        makeToast("Log out succesfull!");
     }
 
     private void openCalendar() {
@@ -159,6 +151,10 @@ public class AppnimalActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PetsActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void makeToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     private void setStatusBarcolor() {

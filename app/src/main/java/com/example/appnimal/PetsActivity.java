@@ -90,7 +90,6 @@ public class PetsActivity extends AppCompatActivity {
         }
         super.onResume();
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -189,5 +188,9 @@ public class PetsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void deletePet(View view) {
+        //TODO
     }
 }
