@@ -178,6 +178,7 @@
                     app:startIconTint="@color/white">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/fullName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/fullname_icoon"
@@ -202,6 +203,7 @@
                     app:startIconTint="@color/white">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/userName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/username_icon"
@@ -226,6 +228,7 @@
                     app:startIconTint="@color/white">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/email_icon"
@@ -250,6 +253,7 @@
                     app:startIconTint="@color/white">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/password_icon"

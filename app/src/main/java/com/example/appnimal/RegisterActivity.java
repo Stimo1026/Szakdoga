@@ -16,6 +16,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -27,6 +29,8 @@ public class RegisterActivity extends AppCompatActivity {
     EditText passwordConfirmEditText;
     private FirebaseAuth auth;
     private Toast mToast;
+    private FirebaseFirestore mFirestore;
+    private CollectionReference cRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,8 @@ public class RegisterActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         passwordConfirmEditText = findViewById(R.id.passwordAgainEditText);
 
+        mFirestore = FirebaseFirestore.getInstance();
+        cRef = mFirestore.collection("Useres");
         auth = FirebaseAuth.getInstance();
     }
 
@@ -64,31 +70,41 @@ public class RegisterActivity extends AppCompatActivity {
             }
             mToast = Toast.makeText(RegisterActivity.this, "Passwords do not match!", Toast.LENGTH_LONG);
             mToast.show();
-        }
-        if (username.equals("") || email.equals("") || pw.equals("") || pwConfirm.equals("")) {
-            if (mToast != null) {
-                mToast.cancel();
-            }
-            mToast = Toast.makeText(RegisterActivity.this, "Something is missing!", Toast.LENGTH_LONG);
-            mToast.show();
         } else {
-            auth.createUserWithEmailAndPassword(email, pw).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        //Log.d(LOG_TAG, "User created successfully");
-                        startAppnimal();
-                    } else {
-                        //Log.d(LOG_TAG, "User was't created successfully:", task.getException());
-                        if (mToast != null) {
-                            mToast.cancel();
-                        }
-                        mToast = Toast.makeText(RegisterActivity.this, "Error: creating user", Toast.LENGTH_LONG);
-                        mToast.show();
-                    }
+            if (username.equals("") || email.equals("") || pw.equals("") || pwConfirm.equals("")) {
+                if (mToast != null) {
+                    mToast.cancel();
                 }
-            });
+                mToast = Toast.makeText(RegisterActivity.this, "Something is missing!", Toast.LENGTH_LONG);
+                mToast.show();
+            } else {
+                auth.createUserWithEmailAndPassword(email, pw).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            //Log.d(LOG_TAG, "User created successfully");
+
+                            storeUser(username, email, pw);
+                            startAppnimal();
+                        } else {
+                            //Log.d(LOG_TAG, "User was't created successfully:", task.getException());
+                            if (mToast != null) {
+                                mToast.cancel();
+                            }
+                            mToast = Toast.makeText(RegisterActivity.this, "Error: creating user", Toast.LENGTH_LONG);
+                            mToast.show();
+                        }
+                    }
+                });
+            }
         }
+
+    }
+
+    private void storeUser(String username, String email, String password) {
+        User user = new User(username, "full name", password, email);
+        cRef.add(user);
+
     }
 
 

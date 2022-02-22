@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
@@ -58,8 +59,7 @@ public class AppnimalActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(this::onOptionsItemSelected);
 
         navigationView.setCheckedItem(R.id.nav_home);
-
-        //storeNewUser();
+        storeNewUser();
     }
 
 
@@ -166,10 +166,7 @@ public class AppnimalActivity extends AppCompatActivity {
     }
 
     private void storeNewUser() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        myRef.setValue("Hello, World!");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     }
 
