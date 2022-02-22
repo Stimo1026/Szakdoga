@@ -36,6 +36,9 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseFirestore mFirestore;
     private CollectionReference cRef;
+    private User currUser;
+    private String id;
+    private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +79,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -113,16 +115,50 @@ public class ProfileActivity extends AppCompatActivity {
         return true;
     }
 
+    public void updateUser(View view) {
 
-    private void getUserInfo(){
+        String newUserName = userName.getText().toString();
+        String newFullName = fullName.getText().toString();
+        String newEmail = email.getText().toString();
+        String newPassword = password.getText().toString();
+
+        if(newUserName.equals("") || newFullName.equals("") || newEmail.equals("") || newPassword.equals("")){
+            if (mToast != null) {
+                mToast.cancel();
+            }
+            mToast = Toast.makeText(ProfileActivity.this, "Something is missing!", Toast.LENGTH_LONG);
+            mToast.show();
+        }else{
+            cRef.document(id).update("email", newEmail);
+            cRef.document(id).update("fullName", newFullName);
+            cRef.document(id).update("userName", newUserName);
+            cRef.document(id).update("pw", newPassword);
+            if (mToast != null) {
+                mToast.cancel();
+            }
+            mToast = Toast.makeText(ProfileActivity.this, "Updated succesfully!", Toast.LENGTH_LONG);
+            mToast.show();
+
+            userName.setText(newUserName);
+            fullName.setText(newFullName);
+            email.setText(newEmail);
+            password.setText(newPassword);
+
+            Objects.requireNonNull(auth.getCurrentUser()).updateEmail(newEmail);
+            auth.getCurrentUser().updatePassword(newPassword);
+        }
+    }
+
+
+    private void getUserInfo() {
         cRef.whereEqualTo("email", auth.getCurrentUser().getEmail()).get().addOnSuccessListener(queryDocumentSnapshots -> {
-            for(QueryDocumentSnapshot doc : queryDocumentSnapshots){
-                User user = doc.toObject(User.class);
-
-                userName.setText(user.getUserName());
-                fullName.setText(user.getFullName());
-                email.setText(user.getEmail());
-                password.setText(user.getPw());
+            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                currUser = doc.toObject(User.class);
+                id = doc.getId();
+                userName.setText(currUser.getUserName());
+                fullName.setText(currUser.getFullName());
+                email.setText(currUser.getEmail());
+                password.setText(currUser.getPw());
             }
 
         });
@@ -185,4 +221,6 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
 }

@@ -83,9 +83,9 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //Log.d(LOG_TAG, "User created successfully");
-
                             storeUser(username, email, pw);
                             startAppnimal();
+                            finish();
                         } else {
                             //Log.d(LOG_TAG, "User was't created successfully:", task.getException());
                             if (mToast != null) {
