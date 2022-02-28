@@ -7,7 +7,6 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -19,6 +18,9 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -34,6 +36,10 @@ public class PetsActivity extends AppCompatActivity {
     private RecyclerView mRecycleView;
     private PetAdapter mAdapter;
     private CardView cardView;
+    private FirebaseFirestore mFirestore;
+    private CollectionReference cRef;
+    private User currUser;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,19 +62,23 @@ public class PetsActivity extends AppCompatActivity {
         navigationView.setCheckedItem(R.id.nav_pets);
         navigationView.setNavigationItemSelectedListener(this::onOptionsItemSelected);
 
+        mFirestore = FirebaseFirestore.getInstance();
+        cRef = mFirestore.collection("Useres");
+        auth = FirebaseAuth.getInstance();
+        getUserInfo();
+
 
         mRecycleView = findViewById(R.id.petRec);
         mRecycleView.setLayoutManager(new GridLayoutManager(this, 1));
 
         mAdapter = new PetAdapter(this, pets);
         mRecycleView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
 
         if (PetsActivity.pets.size() >= 4) {
             cardView.setVisibility(View.INVISIBLE);
             cardView.getLayoutParams().height = 0;
             cardView.setClickable(false);
-        }else{
+        } else {
             cardView.setVisibility(View.VISIBLE);
             cardView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
             cardView.setClickable(true);
@@ -78,18 +88,32 @@ public class PetsActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        mAdapter.notifyDataSetChanged();
         if (PetsActivity.pets.size() >= 4) {
             cardView.setVisibility(View.INVISIBLE);
             cardView.getLayoutParams().height = 0;
             cardView.setClickable(false);
-        }else{
+        } else {
             cardView.setVisibility(View.VISIBLE);
             cardView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
             cardView.setClickable(true);
         }
+        mAdapter.notifyDataSetChanged();
         super.onResume();
     }
+
+    private void getUserInfo() {
+        cRef.whereEqualTo("email", auth.getCurrentUser().getEmail()).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                currUser = doc.toObject(User.class);
+                id = doc.getId();
+                pets = currUser.getPets();
+                mAdapter.notifyDataSetChanged();
+            }
+
+        });
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -150,6 +174,7 @@ public class PetsActivity extends AppCompatActivity {
             mToast.show();
         } else {
             Intent intent = new Intent(this, PetAddActivity.class);
+            finish();
             startActivity(intent);
         }
     }

@@ -1,6 +1,10 @@
 package com.example.appnimal;
 
 public class Pet {
+
+    public Pet(){
+    }
+
     public Pet(String name, String species, String breed, int age) {
         this.name = name;
         this.species = species;
