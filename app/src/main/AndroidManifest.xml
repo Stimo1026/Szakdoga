@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Appnimal">
         <activity
+            android:name=".SetNotificationActivity"
+            android:exported="false" />
+        <activity
             android:name=".PetAddActivity"
             android:exported="false" />
         <activity
