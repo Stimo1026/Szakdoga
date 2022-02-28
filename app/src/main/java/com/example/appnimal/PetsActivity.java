@@ -67,23 +67,6 @@ public class PetsActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         getUserInfo();
 
-
-        mRecycleView = findViewById(R.id.petRec);
-        mRecycleView.setLayoutManager(new GridLayoutManager(this, 1));
-
-        mAdapter = new PetAdapter(this, pets);
-        mRecycleView.setAdapter(mAdapter);
-
-        if (PetsActivity.pets.size() >= 4) {
-            cardView.setVisibility(View.INVISIBLE);
-            cardView.getLayoutParams().height = 0;
-            cardView.setClickable(false);
-        } else {
-            cardView.setVisibility(View.VISIBLE);
-            cardView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            cardView.setClickable(true);
-        }
-
     }
 
     @Override
@@ -107,10 +90,26 @@ public class PetsActivity extends AppCompatActivity {
                 currUser = doc.toObject(User.class);
                 id = doc.getId();
                 pets = currUser.getPets();
-                mAdapter.notifyDataSetChanged();
             }
 
         });
+
+        mRecycleView = findViewById(R.id.petRec);
+        mRecycleView.setLayoutManager(new GridLayoutManager(this, 1));
+
+        mAdapter = new PetAdapter(this, pets);
+        mRecycleView.setAdapter(mAdapter);
+
+        if (PetsActivity.pets.size() >= 4) {
+            cardView.setVisibility(View.INVISIBLE);
+            cardView.getLayoutParams().height = 0;
+            cardView.setClickable(false);
+        } else {
+            cardView.setVisibility(View.VISIBLE);
+            cardView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            cardView.setClickable(true);
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
 
