@@ -3,14 +3,22 @@ package com.example.appnimal;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.appnimal.databinding.ActivitySetNotificationBinding;
 
@@ -20,29 +28,53 @@ public class SetNotificationActivity extends AppCompatActivity {
 
     private TextView test;
     private Button timeButton;
+    private Button setNotiButton;
     int hour, minute;
-    private ActivitySetNotificationBinding binding;
+    private AlarmManager alarmManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_notification);
-
-        binding = ActivitySetNotificationBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
+        setNotiButton = findViewById(R.id.setNotiButton);
 
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
         test = findViewById(R.id.test);
         timeButton = findViewById(R.id.timeButton);
 
+
+        creatChannel();
         if (b != null) {
             String text = (String) b.get("date");
 
             test.setText(text);
         }
+    }
+
+    public void setAlarm(View view) {
+        Toast.makeText(SetNotificationActivity.this, "Alarm set!", Toast.LENGTH_SHORT).show();
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(SetNotificationActivity.this,
+                0, intent, 0);
+
+        long currTime = System.currentTimeMillis();
+        long tenSecs = 1000 * 10;
+        alarmManager.set(AlarmManager.RTC_WAKEUP, currTime + tenSecs, pendingIntent);
+    }
+
+    private void creatChannel() {
+        CharSequence name = "AppnimalChannel";
+        String desc = "Channel for Alarm Manager";
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+        NotificationChannel channel = new NotificationChannel("Appnimal", name, importance);
+        channel.setDescription(desc);
+
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
     }
 
     public void popTimePicker(View view) {
