@@ -12,9 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <include
                 android:id="@+id/toolbar"
@@ -24,17 +25,32 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="176dp"
-                android:layout_marginTop="356dp"
-                android:layout_marginEnd="177dp"
-                android:layout_marginBottom="356dp"
-                android:text="Walks"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="30sp"
+                android:textAllCaps="true"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/oswald"
+                android:text="Select your pet:" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <Spinner
+                android:layout_marginTop="5dp"
+                android:id="@+id/spinner1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="55dp"
+                />
+
+            <Button
+                android:layout_marginHorizontal="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/grey"
+                android:text="Go for a walk"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
     </ScrollView>
 
     <com.google.android.material.navigation.NavigationView
