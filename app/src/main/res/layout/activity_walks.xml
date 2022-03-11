@@ -46,6 +46,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@color/grey"
                 android:text="Go for a walk"
+                android:onClick="goWalk"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
