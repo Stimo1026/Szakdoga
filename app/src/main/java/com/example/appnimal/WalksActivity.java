@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -27,11 +28,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class WalksActivity extends AppCompatActivity {
+public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapter.OnPetListener {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    private TextView selectedPetTv;
     private FirebaseAuth auth;
     private CollectionReference cRef;
     private User currUser;
@@ -39,6 +41,7 @@ public class WalksActivity extends AppCompatActivity {
     private PetsForWalkAdapter mAdapter;
     private FirebaseFirestore mFirestore;
     private String id;
+    private Pet selectedPet = null;
     public static ArrayList<Pet> pets = new ArrayList<Pet>();
 
 
@@ -47,12 +50,15 @@ public class WalksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walks);
 
-
-
+        selectedPetTv = findViewById(R.id.selectedPetTv);
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.draw_layout);
         toolbar = findViewById(R.id.toolbar);
         auth = FirebaseAuth.getInstance();
+
+        if(selectedPet == null){
+            selectedPetTv.setText("No pet selected yet ...");
+        }
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
@@ -70,13 +76,6 @@ public class WalksActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         getUserInfo();
 
-        final Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mAdapter.notifyDataSetChanged();
-            }
-        }, 1000);
     }
 
     private void getUserInfo() {
@@ -92,17 +91,10 @@ public class WalksActivity extends AppCompatActivity {
         mRecycleView = findViewById(R.id.pets_for_walk);
         mRecycleView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        mAdapter = new PetsForWalkAdapter(this, pets);
+        mAdapter = new PetsForWalkAdapter(this, pets, this);
         mRecycleView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
 
-        final Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mAdapter.notifyDataSetChanged();
-            }
-        }, 1000);
 
     }
 
@@ -201,8 +193,13 @@ public class WalksActivity extends AppCompatActivity {
     }
 
     public void goWalk(View view) {
-        Intent intent = new Intent(this, OnWalkActivity.class);
-        startActivity(intent);
+        if(selectedPet == null){
+            Toast.makeText(this, "Select a pet first ...", Toast.LENGTH_SHORT).show();
+        }else{
+            Intent intent = new Intent(this, OnWalkActivity.class);
+            intent.putExtra("petName", selectedPet.getName());
+            startActivity(intent);
+        }
     }
 
     public void refresh(View view) {
@@ -210,5 +207,12 @@ public class WalksActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
         startActivity(getIntent());
         overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void onPetClick(int position) {
+        selectedPet = pets.get(position);
+
+        selectedPetTv.setText("Walk with: " + selectedPet.getName());
     }
 }

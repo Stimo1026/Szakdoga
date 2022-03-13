@@ -15,8 +15,10 @@ public class PetsForWalkAdapter extends RecyclerView.Adapter<PetsForWalkAdapter.
 
     private ArrayList<Pet> pets = new ArrayList<>();
     private Context mContext;
+    private OnPetListener mOnPetListener;
 
-    PetsForWalkAdapter(Context context, ArrayList<Pet> petsData) {
+    PetsForWalkAdapter(Context context, ArrayList<Pet> petsData, OnPetListener onPetListener) {
+        this.mOnPetListener = onPetListener;
         this.pets = petsData;
         mContext = context;
     }
@@ -24,7 +26,7 @@ public class PetsForWalkAdapter extends RecyclerView.Adapter<PetsForWalkAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.pet_for_walk, parent, false));
+        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.pet_for_walk, parent, false), mOnPetListener);
     }
 
     @Override
@@ -38,23 +40,35 @@ public class PetsForWalkAdapter extends RecyclerView.Adapter<PetsForWalkAdapter.
         return pets.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView name;
         private TextView species;
+        OnPetListener onPetListener;
 
-
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnPetListener onPetListener) {
             super(itemView);
 
             name = itemView.findViewById(R.id.name_for_walk);
             species = itemView.findViewById(R.id.species_for_walk);
+            this.onPetListener = onPetListener;
 
+            itemView.setOnClickListener(this);
         }
 
         public void bindTo(Pet currentPet) {
             name.setText(currentPet.getName());
             species.setText(currentPet.getSpecies());
         }
+
+        @Override
+        public void onClick(View v) {
+            onPetListener.onPetClick(getAdapterPosition());
+        }
     }
+
+    public interface OnPetListener{
+        void onPetClick(int position);
+    }
+
 }
 

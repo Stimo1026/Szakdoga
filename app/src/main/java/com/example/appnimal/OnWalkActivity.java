@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -39,11 +40,19 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_walk);
+
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
+
         stepCount = 0;
         pet_tv = findViewById(R.id.pet_name);
         steps_tv = findViewById(R.id.steps_took);
         time_tv = findViewById(R.id.time_spent);
         meters_tv = findViewById(R.id.meters_walked);
+
+        if(b != null){
+            pet_tv.setText((String) b.get("petName"));
+        }
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED) {
