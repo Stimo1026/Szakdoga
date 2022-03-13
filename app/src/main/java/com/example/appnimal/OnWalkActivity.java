@@ -13,6 +13,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -76,6 +77,7 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
         };
         timer.scheduleAtFixedRate(timerTask, 1000 , 1000);
     }
+
 
     private String getTimerText() {
         int rounded = (int) Math.round(time);

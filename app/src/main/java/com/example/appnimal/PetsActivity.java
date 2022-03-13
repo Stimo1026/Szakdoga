@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +68,7 @@ public class PetsActivity extends AppCompatActivity {
         cRef = mFirestore.collection("Useres");
         auth = FirebaseAuth.getInstance();
         getUserInfo();
+
 
     }
 
@@ -216,5 +219,12 @@ public class PetsActivity extends AppCompatActivity {
 
     public void deletePet(View view) {
         //TODO
+    }
+
+    public void refresh(View view) {
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
     }
 }

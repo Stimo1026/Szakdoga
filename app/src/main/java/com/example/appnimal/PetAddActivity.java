@@ -90,6 +90,8 @@ public class PetAddActivity extends AppCompatActivity {
     }
 
     public void cancel(View view) {
+        Intent intent = new Intent(this, PetsActivity.class);
+        startActivity(intent);
         finish();
     }
 }
