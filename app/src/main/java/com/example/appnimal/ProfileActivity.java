@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -33,6 +35,9 @@ public class ProfileActivity extends AppCompatActivity {
     private TextInputEditText userName;
     private TextInputEditText email;
     private TextInputEditText password;
+    private TextView fullnameDisplay;
+    private TextView usernameDisplay;
+    private TextView petsNumber;
     private FirebaseAuth auth;
     private FirebaseFirestore mFirestore;
     private CollectionReference cRef;
@@ -46,9 +51,14 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         navigationView = findViewById(R.id.nav_view);
+
         drawerLayout = findViewById(R.id.draw_layout);
         toolbar = findViewById(R.id.toolbar);
         auth = FirebaseAuth.getInstance();
+
+        fullnameDisplay = findViewById(R.id.full_name);
+        usernameDisplay = findViewById(R.id.usernameDisplay);
+        petsNumber = findViewById(R.id.pets_number);
 
         fullName = findViewById(R.id.fullName);
         userName = findViewById(R.id.userName);
@@ -146,6 +156,10 @@ public class ProfileActivity extends AppCompatActivity {
 
             Objects.requireNonNull(auth.getCurrentUser()).updateEmail(newEmail);
             auth.getCurrentUser().updatePassword(newPassword);
+
+            fullnameDisplay.setText(newFullName);
+            usernameDisplay.setText(newUserName);
+            petsNumber.setText(String.valueOf(currUser.getPets().size()));
         }
     }
 
@@ -159,9 +173,14 @@ public class ProfileActivity extends AppCompatActivity {
                 fullName.setText(currUser.getFullName());
                 email.setText(currUser.getEmail());
                 password.setText(currUser.getPw());
+                fullnameDisplay.setText(currUser.getFullName());
+                usernameDisplay.setText(currUser.getUserName());
+                petsNumber.setText(String.valueOf(currUser.getPets().size()));
             }
 
         });
+
+
     }
 
 

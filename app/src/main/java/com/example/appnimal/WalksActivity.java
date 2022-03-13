@@ -37,6 +37,7 @@ public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapt
     private FirebaseAuth auth;
     private CollectionReference cRef;
     private User currUser;
+    private Toast mToast;
     private RecyclerView mRecycleView;
     private PetsForWalkAdapter mAdapter;
     private FirebaseFirestore mFirestore;
@@ -56,8 +57,12 @@ public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapt
         toolbar = findViewById(R.id.toolbar);
         auth = FirebaseAuth.getInstance();
 
-        if(selectedPet == null){
-            selectedPetTv.setText("No pet selected yet ...");
+        if (pets.isEmpty()) {
+            selectedPetTv.setText("You have no pets! \n Go add one first.");
+        } else {
+            if (selectedPet == null) {
+                selectedPetTv.setText("No pet selected yet ...");
+            }
         }
 
         setSupportActionBar(toolbar);
@@ -74,6 +79,9 @@ public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapt
         mFirestore = FirebaseFirestore.getInstance();
         cRef = mFirestore.collection("Useres");
         auth = FirebaseAuth.getInstance();
+
+
+
         getUserInfo();
 
     }
@@ -84,17 +92,15 @@ public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapt
                 currUser = doc.toObject(User.class);
                 id = doc.getId();
                 pets = currUser.getPets();
+
+                mRecycleView = findViewById(R.id.pets_for_walk);
+                mRecycleView.setLayoutManager(new GridLayoutManager(this, 2));
+
+                mAdapter = new PetsForWalkAdapter(this, pets, this);
+                mRecycleView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
             }
-
         });
-
-        mRecycleView = findViewById(R.id.pets_for_walk);
-        mRecycleView.setLayoutManager(new GridLayoutManager(this, 2));
-
-        mAdapter = new PetsForWalkAdapter(this, pets, this);
-        mRecycleView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
-
 
     }
 
@@ -133,7 +139,6 @@ public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapt
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
 
     @Override
@@ -193,12 +198,25 @@ public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapt
     }
 
     public void goWalk(View view) {
-        if(selectedPet == null){
-            Toast.makeText(this, "Select a pet first ...", Toast.LENGTH_SHORT).show();
-        }else{
-            Intent intent = new Intent(this, OnWalkActivity.class);
-            intent.putExtra("petName", selectedPet.getName());
-            startActivity(intent);
+        if (pets.isEmpty()) {
+            if (mToast != null) {
+                mToast.cancel();
+            }
+            mToast = Toast.makeText(WalksActivity.this, "You can't go on a walk alone ...", Toast.LENGTH_SHORT);
+            mToast.show();
+        } else {
+            if (selectedPet == null) {
+                if (mToast != null) {
+                    mToast.cancel();
+                }
+                mToast = Toast.makeText(WalksActivity.this, "Select a pet first ...", Toast.LENGTH_SHORT);
+                mToast.show();
+            } else {
+                Intent intent = new Intent(this, OnWalkActivity.class);
+                intent.putExtra("petName", selectedPet.getName());
+                startActivity(intent);
+                finish();
+            }
         }
     }
 

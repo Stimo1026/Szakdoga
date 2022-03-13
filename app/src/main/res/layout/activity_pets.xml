@@ -36,13 +36,20 @@
                     android:text="Your pets:" />
 
                 <ImageView
-                    android:layout_marginLeft="160dp"
+                    android:id="@+id/delete"
+                    android:layout_marginLeft="125dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/delete_icon"
+                    android:onClick="delClicked"
+                    />
+
+                <ImageView
+                    android:layout_marginLeft="10dp"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/refresh_ico"
-                    android:onClick="refresh">
-
-                </ImageView>
+                    android:onClick="refresh"/>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

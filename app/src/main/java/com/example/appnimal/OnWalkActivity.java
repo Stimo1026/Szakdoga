@@ -118,10 +118,14 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
     }
 
     public void stopWalak(View view) {
+        Intent intent = new Intent(this, WalksActivity.class);
+        startActivity(intent);
         finish();
     }
 
     public void cancel(View view) {
+        Intent intent = new Intent(this, WalksActivity.class);
+        startActivity(intent);
         finish();
     }
 

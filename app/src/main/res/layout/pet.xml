@@ -13,15 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="150dp">
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="12dp"
-            android:src="@drawable/delete_icon"
-            android:onClick="deletePet"/>
-
         <LinearLayout
 
             android:id="@+id/layoutTopDesc"

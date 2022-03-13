@@ -16,17 +16,19 @@ import java.util.ArrayList;
 public class PetAdapter extends RecyclerView.Adapter<PetAdapter.ViewHolder> {
 
     private ArrayList<Pet> pets = new ArrayList<>();
+    private OnPetListener mOnPetLsitener;
     private Context mContext;
 
-    PetAdapter(Context context, ArrayList<Pet> petsData) {
+    PetAdapter(Context context, ArrayList<Pet> petsData, OnPetListener onPetListener) {
         this.pets = petsData;
+        this.mOnPetLsitener = onPetListener;
         mContext = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.pet, parent, false));
+        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.pet, parent, false), mOnPetLsitener);
     }
 
     @Override
@@ -40,21 +42,23 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.ViewHolder> {
         return pets.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView name;
         private TextView species;
         private TextView breed;
         private TextView age;
+        OnPetListener onPetListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnPetListener onPetListener) {
             super(itemView);
 
             name = itemView.findViewById(R.id.name);
             species = itemView.findViewById(R.id.species);
             breed = itemView.findViewById(R.id.breed);
             age = itemView.findViewById(R.id.age);
+            this.onPetListener = onPetListener;
 
-
+            itemView.setOnClickListener(this);
         }
 
         public void bindTo(Pet currentPet) {
@@ -63,6 +67,15 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.ViewHolder> {
             breed.setText(currentPet.getBreed());
             age.setText(String.valueOf(currentPet.getAge()));
         }
+
+        @Override
+        public void onClick(View v) {
+            onPetListener.onPetClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnPetListener {
+        void onPetClick(int position);
     }
 }
 

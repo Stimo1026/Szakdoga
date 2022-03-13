@@ -16,6 +16,7 @@ import android.os.Looper;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -27,11 +28,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class PetsActivity extends AppCompatActivity {
+public class PetsActivity extends AppCompatActivity implements PetAdapter.OnPetListener {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    private ImageView delete;
     private FirebaseAuth auth;
     public static ArrayList<Pet> pets = new ArrayList<Pet>();
     private Toast mToast;
@@ -42,6 +44,7 @@ public class PetsActivity extends AppCompatActivity {
     private CollectionReference cRef;
     private User currUser;
     private String id;
+    private boolean deleteActive = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,9 @@ public class PetsActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.draw_layout);
         toolbar = findViewById(R.id.toolbar);
         auth = FirebaseAuth.getInstance();
+        delete = findViewById(R.id.delete);
+        deleteActive = false;
+        delete.setImageResource(R.drawable.delete_icon);
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
@@ -67,6 +73,13 @@ public class PetsActivity extends AppCompatActivity {
         mFirestore = FirebaseFirestore.getInstance();
         cRef = mFirestore.collection("Useres");
         auth = FirebaseAuth.getInstance();
+
+        mRecycleView = findViewById(R.id.petRec);
+        mRecycleView.setLayoutManager(new GridLayoutManager(this, 1));
+
+        mAdapter = new PetAdapter(this, pets, this);
+        mRecycleView.setAdapter(mAdapter);
+
         getUserInfo();
 
 
@@ -74,6 +87,8 @@ public class PetsActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        deleteActive = false;
+        delete.setImageResource(R.drawable.delete_icon);
         if (PetsActivity.pets.size() >= 4) {
             cardView.setVisibility(View.INVISIBLE);
             cardView.getLayoutParams().height = 0;
@@ -93,15 +108,15 @@ public class PetsActivity extends AppCompatActivity {
                 currUser = doc.toObject(User.class);
                 id = doc.getId();
                 pets = currUser.getPets();
+                mRecycleView = findViewById(R.id.petRec);
+                mRecycleView.setLayoutManager(new GridLayoutManager(this, 1));
+
+                mAdapter = new PetAdapter(this, pets, this);
+                mRecycleView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
             }
 
         });
-
-        mRecycleView = findViewById(R.id.petRec);
-        mRecycleView.setLayoutManager(new GridLayoutManager(this, 1));
-
-        mAdapter = new PetAdapter(this, pets);
-        mRecycleView.setAdapter(mAdapter);
 
         if (PetsActivity.pets.size() >= 4) {
             cardView.setVisibility(View.INVISIBLE);
@@ -160,7 +175,7 @@ public class PetsActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
             auth.signOut();
-            Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -172,7 +187,7 @@ public class PetsActivity extends AppCompatActivity {
             if (mToast != null) {
                 mToast.cancel();
             }
-            mToast = Toast.makeText(PetsActivity.this, "You already have 4 pets!", Toast.LENGTH_LONG);
+            mToast = Toast.makeText(PetsActivity.this, "You already have 4 pets!", Toast.LENGTH_SHORT);
             mToast.show();
         } else {
             Intent intent = new Intent(this, PetAddActivity.class);
@@ -184,7 +199,7 @@ public class PetsActivity extends AppCompatActivity {
     private void signOut() {
         auth.signOut();
         finish();
-        Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_SHORT).show();
     }
 
     private void openCalendar() {
@@ -217,14 +232,42 @@ public class PetsActivity extends AppCompatActivity {
         finish();
     }
 
-    public void deletePet(View view) {
-        //TODO
-    }
 
     public void refresh(View view) {
         finish();
         overridePendingTransition(0, 0);
         startActivity(getIntent());
         overridePendingTransition(0, 0);
+    }
+
+
+    public void delClicked(View view) {
+        if (deleteActive) {
+            deleteActive = false;
+            delete.setImageResource(R.drawable.delete_icon);
+        } else {
+            deleteActive = true;
+            delete.setImageResource(R.drawable.del_active_ico);
+            if (mToast != null) {
+                mToast.cancel();
+            }
+            mToast = Toast.makeText(PetsActivity.this, "Click on a pet to delete it!", Toast.LENGTH_SHORT);
+            mToast.show();
+        }
+    }
+
+    @Override
+    public void onPetClick(int position) {
+        if(deleteActive){
+            deleteActive = false;
+            pets.remove(position);
+            delete.setImageResource(R.drawable.delete_icon);
+            mAdapter.notifyItemRemoved(position);
+            cRef.document(id).update("pets", PetsActivity.pets);
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(getIntent());
+            overridePendingTransition(0, 0);
+        }
     }
 }
