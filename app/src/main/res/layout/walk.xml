@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="30dp"
+    android:layout_marginTop="15dp"
+
+    app:cardCornerRadius="20dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="175dp">
+
+        <RelativeLayout
+            android:layout_marginTop="5dp"
+            android:id="@+id/topLayout"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+
+                android:id="@+id/withDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="With:"
+                android:textAlignment="center"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/with"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/withDesc"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/overpass_bold"
+                android:text="Geza"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layoutTopDesc"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/topLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="140dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/dateDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Date:"
+                    android:textAlignment="center"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/dateDesc"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/overpass_bold"
+                    android:text="2022.12.13"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="140dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/stepsDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Steps:"
+                    android:textAlignment="center"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/steps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/stepsDesc"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/overpass_bold"
+                    android:text="233"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutBottomDesc"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutTopDesc"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="140dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/durationDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Duraton:"
+                    android:textAlignment="center"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/length"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/durationDesc"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/overpass_bold"
+                    android:text="45:23"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="140dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/lengthDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Distance:"
+                    android:textAlignment="center"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lengthDesc"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/overpass_bold"
+                    android:text="123 m"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

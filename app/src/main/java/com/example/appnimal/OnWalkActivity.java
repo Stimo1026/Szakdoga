@@ -19,6 +19,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -34,6 +41,11 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
     Timer timer;
     double time = 0.0;
     TimerTask timerTask;
+    private CollectionReference cRef;
+    private FirebaseFirestore mFirestore;
+    private User currUser;
+    private String id;
+    private FirebaseAuth auth;
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
@@ -50,7 +62,7 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
         time_tv = findViewById(R.id.time_spent);
         meters_tv = findViewById(R.id.meters_walked);
 
-        if(b != null){
+        if (b != null) {
             pet_tv.setText((String) b.get("petName"));
         }
 
@@ -69,6 +81,12 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
         }
         timer = new Timer();
         startTimer();
+
+        mFirestore = FirebaseFirestore.getInstance();
+        cRef = mFirestore.collection("Useres");
+        auth = FirebaseAuth.getInstance();
+
+        getUserInfo();
     }
 
     private void startTimer() {
@@ -84,7 +102,7 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
                 });
             }
         };
-        timer.scheduleAtFixedRate(timerTask, 1000 , 1000);
+        timer.scheduleAtFixedRate(timerTask, 1000, 1000);
     }
 
 
@@ -117,7 +135,37 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
         super.onPause();
     }
 
+    private void getUserInfo() {
+        cRef.whereEqualTo("email", auth.getCurrentUser().getEmail()).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                currUser = doc.toObject(User.class);
+                id = doc.getId();
+            }
+
+        });
+    }
+
     public void stopWalak(View view) {
+        int steps;
+        int length;
+        String date;
+        String petName;
+        String duration;
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDateTime now = LocalDateTime.now();
+
+        date = dtf.format(now);
+        duration = time_tv.getText().toString();
+        petName = pet_tv.getText().toString();
+        steps = Integer.parseInt(steps_tv.getText().toString());
+        length = Integer.parseInt(meters_tv.getText().toString());
+
+        Walk walk = new Walk(date,petName,duration,steps,length);
+        WalksActivity.walks.add(walk);
+        cRef.document(id).update("walks", WalksActivity.walks);
+
+
         Intent intent = new Intent(this, WalksActivity.class);
         startActivity(intent);
         finish();

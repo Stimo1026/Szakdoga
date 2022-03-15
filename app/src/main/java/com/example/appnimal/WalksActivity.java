@@ -39,11 +39,14 @@ public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapt
     private User currUser;
     private Toast mToast;
     private RecyclerView mRecycleView;
+    private RecyclerView mRecycleViewWalk;
     private PetsForWalkAdapter mAdapter;
+    private WalkAdapter mAdapterWalk;
     private FirebaseFirestore mFirestore;
     private String id;
     private Pet selectedPet = null;
     public static ArrayList<Pet> pets = new ArrayList<Pet>();
+    public static ArrayList<Walk> walks = new ArrayList<Walk>();
 
 
     @Override
@@ -92,13 +95,25 @@ public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapt
                 currUser = doc.toObject(User.class);
                 id = doc.getId();
                 pets = currUser.getPets();
+                walks = currUser.getWalks();
 
+                //for pets
                 mRecycleView = findViewById(R.id.pets_for_walk);
                 mRecycleView.setLayoutManager(new GridLayoutManager(this, 2));
 
                 mAdapter = new PetsForWalkAdapter(this, pets, this);
                 mRecycleView.setAdapter(mAdapter);
+
                 mAdapter.notifyDataSetChanged();
+
+                //for walks
+                mRecycleViewWalk = findViewById(R.id.walkRec);
+                mRecycleViewWalk.setLayoutManager(new GridLayoutManager(this, 1));
+
+                mAdapterWalk = new WalkAdapter(this, walks);
+                mRecycleViewWalk.setAdapter(mAdapterWalk);
+
+                mAdapterWalk.notifyDataSetChanged();
             }
         });
 

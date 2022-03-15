@@ -9,6 +9,7 @@ public class User {
     private String pw;
     private String email;
     private ArrayList<Pet> pets;
+    private ArrayList<Walk> walks;
 
     public User() {
     }
@@ -53,12 +54,21 @@ public class User {
         this.email = email;
     }
 
+    public ArrayList<Walk> getWalks() {
+        return walks;
+    }
+
+    public void setWalks(ArrayList<Walk> walks) {
+        this.walks = walks;
+    }
+
     public User(String userName, String fullName, String pw, String email) {
         this.userName = userName;
         this.fullName = fullName;
         this.pw = pw;
         this.email = email;
         this.pets = new ArrayList<Pet>();
+        this.walks = new ArrayList<Walk>();
     }
 
 
