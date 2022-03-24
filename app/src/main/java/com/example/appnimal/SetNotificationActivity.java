@@ -21,7 +21,9 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.appnimal.databinding.ActivitySetNotificationBinding;
+import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.Calendar;
 import java.util.Locale;
 
 public class SetNotificationActivity extends AppCompatActivity {
@@ -29,8 +31,10 @@ public class SetNotificationActivity extends AppCompatActivity {
     private TextView test;
     private Button timeButton;
     private Button setNotiButton;
+    private TextInputEditText notiText;
     int hour, minute;
     private AlarmManager alarmManager;
+    private Calendar calendar;
 
 
     @Override
@@ -43,6 +47,7 @@ public class SetNotificationActivity extends AppCompatActivity {
         Bundle b = intent.getExtras();
         test = findViewById(R.id.test);
         timeButton = findViewById(R.id.timeButton);
+        notiText = findViewById(R.id.notiText);
 
 
         creatChannel();
@@ -54,16 +59,26 @@ public class SetNotificationActivity extends AppCompatActivity {
     }
 
     public void setAlarm(View view) {
-        Toast.makeText(SetNotificationActivity.this, "Alarm set!", Toast.LENGTH_SHORT).show();
+
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        if(timeButton.getText().equals("SELECT TIME")){
+            Toast.makeText(SetNotificationActivity.this, "Select a time first!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(notiText.getText().equals("")){
+            Toast.makeText(SetNotificationActivity.this, "Set a text first'", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Intent intent = new Intent(this, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(SetNotificationActivity.this,
                 0, intent, 0);
 
-        long currTime = System.currentTimeMillis();
-        long tenSecs = 1000 * 10;
-        alarmManager.set(AlarmManager.RTC_WAKEUP, currTime + tenSecs, pendingIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+
+        Toast.makeText(SetNotificationActivity.this, "Alarm set!", Toast.LENGTH_SHORT).show();
     }
 
     private void creatChannel() {
@@ -84,6 +99,12 @@ public class SetNotificationActivity extends AppCompatActivity {
                 hour = selectedHour;
                 minute = selectedMinute;
                 timeButton.setText(String.format((Locale.getDefault()), "%02d:%02d", hour, minute));
+
+                calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, minute);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
             }
         };
 

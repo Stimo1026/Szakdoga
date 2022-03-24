@@ -12,7 +12,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "Appnimal")
                 .setSmallIcon(R.drawable.pets_icon)
-                .setContentTitle("Aappnimal")
+                .setContentTitle("Don't forget:")
                 .setContentText("Placeholder text")
                 .setAutoCancel(true)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
