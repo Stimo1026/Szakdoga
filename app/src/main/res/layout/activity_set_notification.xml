@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/oswald"
             android:text="set a reminder:"
             android:textAllCaps="true"
@@ -55,7 +55,7 @@
             android:id="@+id/timeButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:background="@color/grey"
             android:onClick="popTimePicker"
             android:text="select time"
@@ -66,7 +66,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
             android:hint="Notification message:"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidth="2dp"
@@ -89,14 +89,36 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <CheckBox
+            android:layout_marginTop="10dp"
+            android:id="@+id/repeatCheck"
+            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+            android:textAlignment="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/white"
+            android:text="Repeat alarm every day."
+            android:textColor="@color/white" />
+
         <Button
             android:id="@+id/setNotiButton"
             android:onClick="setAlarm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
             android:background="@color/grey"
-            android:text="set notification"
+            android:text="set alarm"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/cancelNotiBtn"
+            android:onClick="cancelAlarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/grey"
+            android:text="cancel alarm"
             android:textSize="25sp"
             android:textStyle="bold" />
 

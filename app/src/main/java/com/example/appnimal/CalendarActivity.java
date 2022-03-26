@@ -208,6 +208,8 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         if(!daytext.equals("")){
             Intent intent = new Intent(this, SetNotificationActivity.class);
             intent.putExtra("date", daytext + ". " + monthYearFromDate(selectedDate));
+            intent.putExtra("selectedDate", selectedDate);
+            intent.putExtra("selectedDay", daytext);
             startActivity(intent);
         }
     }
