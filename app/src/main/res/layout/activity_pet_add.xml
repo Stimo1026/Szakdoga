@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/brightrgrey"
     android:transitionName="transition_register"
-    tools:context="com.application.appnimal.PetAddActivity">
+    tools:context="com.application.appnimal.activities.PetAddActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

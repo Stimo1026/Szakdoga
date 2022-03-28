@@ -1,4 +1,4 @@
-package com.application.appnimal;
+package com.application.appnimal.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.application.appnimal.AlarmReceiver;
 import com.example.appnimal.R;
 import com.google.android.material.textfield.TextInputEditText;
 

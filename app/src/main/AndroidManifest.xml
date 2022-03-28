@@ -12,40 +12,40 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Appnimal">
         <activity
-            android:name="com.application.appnimal.OnWalkActivity"
+            android:name="com.application.appnimal.activities.OnWalkActivity"
             android:exported="false" />
         <activity
-            android:name="com.application.appnimal.SetNotificationActivity"
+            android:name="com.application.appnimal.activities.SetNotificationActivity"
             android:exported="false" />
         <activity
-            android:name="com.application.appnimal.PetAddActivity"
+            android:name="com.application.appnimal.activities.PetAddActivity"
             android:exported="false" />
         <activity
-            android:name="com.application.appnimal.PetsActivity"
+            android:name="com.application.appnimal.activities.PetsActivity"
             android:exported="false" />
         <activity
-            android:name="com.application.appnimal.SettingsActivity"
+            android:name="com.application.appnimal.activities.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name="com.application.appnimal.ProfileActivity"
+            android:name="com.application.appnimal.activities.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name="com.application.appnimal.WalksActivity"
+            android:name="com.application.appnimal.activities.WalksActivity"
             android:exported="false" />
         <activity
-            android:name="com.application.appnimal.CalendarActivity"
+            android:name="com.application.appnimal.activities.CalendarActivity"
             android:exported="false" />
         <activity
-            android:name="com.application.appnimal.AppnimalActivity"
+            android:name="com.application.appnimal.activities.AppnimalActivity"
             android:exported="false" />
         <activity
-            android:name="com.application.appnimal.LoginActivity"
+            android:name="com.application.appnimal.activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name="com.application.appnimal.RegisterActivity"
+            android:name="com.application.appnimal.activities.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name="com.application.appnimal.MainActivity"
+            android:name="com.application.appnimal.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

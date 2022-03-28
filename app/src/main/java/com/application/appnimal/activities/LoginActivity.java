@@ -1,4 +1,4 @@
-package com.application.appnimal;
+package com.application.appnimal.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

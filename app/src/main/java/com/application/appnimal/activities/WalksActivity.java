@@ -1,4 +1,4 @@
-package com.application.appnimal;
+package com.application.appnimal.activities;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.application.appnimal.classes.Pet;
+import com.application.appnimal.adapters.PetsForWalkAdapter;
+import com.application.appnimal.classes.User;
+import com.application.appnimal.classes.Walk;
+import com.application.appnimal.adapters.WalkAdapter;
 import com.example.appnimal.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;

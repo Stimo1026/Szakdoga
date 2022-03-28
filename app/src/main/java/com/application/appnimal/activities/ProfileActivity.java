@@ -1,4 +1,4 @@
-package com.application.appnimal;
+package com.application.appnimal.activities;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.application.appnimal.classes.User;
 import com.example.appnimal.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -35,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView fullnameDisplay;
     private TextView usernameDisplay;
     private TextView petsNumber;
+    private TextView walksNumber;
     private FirebaseAuth auth;
     private FirebaseFirestore mFirestore;
     private CollectionReference cRef;
@@ -56,6 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
         fullnameDisplay = findViewById(R.id.full_name);
         usernameDisplay = findViewById(R.id.usernameDisplay);
         petsNumber = findViewById(R.id.pets_number);
+        walksNumber = findViewById(R.id.walks_number);
 
         fullName = findViewById(R.id.fullName);
         userName = findViewById(R.id.userName);
@@ -157,6 +160,7 @@ public class ProfileActivity extends AppCompatActivity {
             fullnameDisplay.setText(newFullName);
             usernameDisplay.setText(newUserName);
             petsNumber.setText(String.valueOf(currUser.getPets().size()));
+            walksNumber.setText(String.valueOf(currUser.getWalks().size()));
         }
     }
 
@@ -173,6 +177,7 @@ public class ProfileActivity extends AppCompatActivity {
                 fullnameDisplay.setText(currUser.getFullName());
                 usernameDisplay.setText(currUser.getUserName());
                 petsNumber.setText(String.valueOf(currUser.getPets().size()));
+                walksNumber.setText(String.valueOf(currUser.getWalks().size()));
             }
 
         });

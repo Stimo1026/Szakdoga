@@ -1,4 +1,4 @@
-package com.application.appnimal;
+package com.application.appnimal.classes;
 
 public class Pet {
 

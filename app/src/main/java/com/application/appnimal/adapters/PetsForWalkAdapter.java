@@ -1,4 +1,4 @@
-package com.application.appnimal;
+package com.application.appnimal.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.application.appnimal.classes.Pet;
 import com.example.appnimal.R;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class PetsForWalkAdapter extends RecyclerView.Adapter<PetsForWalkAdapter.
     private Context mContext;
     private OnPetListener mOnPetListener;
 
-    PetsForWalkAdapter(Context context, ArrayList<Pet> petsData, OnPetListener onPetListener) {
+    public PetsForWalkAdapter(Context context, ArrayList<Pet> petsData, OnPetListener onPetListener) {
         this.mOnPetListener = onPetListener;
         this.pets = petsData;
         mContext = context;

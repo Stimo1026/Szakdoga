@@ -1,4 +1,4 @@
-package com.application.appnimal;
+package com.application.appnimal.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
