@@ -1,18 +1,15 @@
-package com.example.appnimal;
+package com.application.appnimal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +18,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.appnimal.databinding.ActivitySetNotificationBinding;
+import com.example.appnimal.R;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.time.LocalDate;

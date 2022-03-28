@@ -12,40 +12,40 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Appnimal">
         <activity
-            android:name=".OnWalkActivity"
+            android:name="com.application.appnimal.OnWalkActivity"
             android:exported="false" />
         <activity
-            android:name=".SetNotificationActivity"
+            android:name="com.application.appnimal.SetNotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".PetAddActivity"
+            android:name="com.application.appnimal.PetAddActivity"
             android:exported="false" />
         <activity
-            android:name=".PetsActivity"
+            android:name="com.application.appnimal.PetsActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.application.appnimal.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name="com.application.appnimal.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".WalksActivity"
+            android:name="com.application.appnimal.WalksActivity"
             android:exported="false" />
         <activity
-            android:name=".CalendarActivity"
+            android:name="com.application.appnimal.CalendarActivity"
             android:exported="false" />
         <activity
-            android:name=".AppnimalActivity"
+            android:name="com.application.appnimal.AppnimalActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.application.appnimal.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name="com.application.appnimal.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.application.appnimal.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,7 +54,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".AlarmReceiver" />
+        <receiver android:name="com.application.appnimal.AlarmReceiver" />
 
         <meta-data
             android:name="preloaded_fonts"

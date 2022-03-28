@@ -1,4 +1,4 @@
-package com.example.appnimal;
+package com.application.appnimal;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.appnimal.R;
 
 import java.util.ArrayList;
 

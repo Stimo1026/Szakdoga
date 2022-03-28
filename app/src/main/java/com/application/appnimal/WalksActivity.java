@@ -1,9 +1,8 @@
-package com.example.appnimal;
+package com.application.appnimal;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -11,14 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.appnimal.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -28,36 +25,45 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class PetsActivity extends AppCompatActivity implements PetAdapter.OnPetListener {
+public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapter.OnPetListener {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-    private ImageView delete;
+    private TextView selectedPetTv;
     private FirebaseAuth auth;
-    public static ArrayList<Pet> pets = new ArrayList<Pet>();
-    private Toast mToast;
-    private RecyclerView mRecycleView;
-    private PetAdapter mAdapter;
-    private CardView cardView;
-    private FirebaseFirestore mFirestore;
     private CollectionReference cRef;
     private User currUser;
+    private Toast mToast;
+    private RecyclerView mRecycleView;
+    private RecyclerView mRecycleViewWalk;
+    private PetsForWalkAdapter mAdapter;
+    private WalkAdapter mAdapterWalk;
+    private FirebaseFirestore mFirestore;
     private String id;
-    private boolean deleteActive = false;
+    private Pet selectedPet = null;
+    public static ArrayList<Pet> pets = new ArrayList<Pet>();
+    public static ArrayList<Walk> walks = new ArrayList<Walk>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pets);
-        cardView = findViewById(R.id.cardView);
+        setContentView(R.layout.activity_walks);
+
+        selectedPetTv = findViewById(R.id.selectedPetTv);
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.draw_layout);
         toolbar = findViewById(R.id.toolbar);
         auth = FirebaseAuth.getInstance();
-        delete = findViewById(R.id.delete);
-        deleteActive = false;
-        delete.setImageResource(R.drawable.delete_icon);
+
+        if (pets.isEmpty()) {
+            selectedPetTv.setText("You have no pets! \n Go add one first.");
+        } else {
+            if (selectedPet == null) {
+                selectedPetTv.setText("No pet selected yet ...");
+            }
+        }
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
@@ -67,70 +73,48 @@ public class PetsActivity extends AppCompatActivity implements PetAdapter.OnPetL
 
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setCheckedItem(R.id.nav_pets);
+        navigationView.setCheckedItem(R.id.nav_walk);
         navigationView.setNavigationItemSelectedListener(this::onOptionsItemSelected);
 
         mFirestore = FirebaseFirestore.getInstance();
         cRef = mFirestore.collection("Useres");
         auth = FirebaseAuth.getInstance();
 
-        mRecycleView = findViewById(R.id.petRec);
-        mRecycleView.setLayoutManager(new GridLayoutManager(this, 1));
 
-        mAdapter = new PetAdapter(this, pets, this);
-        mRecycleView.setAdapter(mAdapter);
 
         getUserInfo();
 
-
-    }
-
-    @Override
-    protected void onResume() {
-        deleteActive = false;
-        delete.setImageResource(R.drawable.delete_icon);
-        if (PetsActivity.pets.size() >= 4) {
-            cardView.setVisibility(View.INVISIBLE);
-            cardView.getLayoutParams().height = 0;
-            cardView.setClickable(false);
-        } else {
-            cardView.setVisibility(View.VISIBLE);
-            cardView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            cardView.setClickable(true);
-        }
-        mAdapter.notifyDataSetChanged();
-        super.onResume();
     }
 
     private void getUserInfo() {
-        // gets user info and pets for user
         cRef.whereEqualTo("email", auth.getCurrentUser().getEmail()).get().addOnSuccessListener(queryDocumentSnapshots -> {
             for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                 currUser = doc.toObject(User.class);
                 id = doc.getId();
                 pets = currUser.getPets();
-                mRecycleView = findViewById(R.id.petRec);
-                mRecycleView.setLayoutManager(new GridLayoutManager(this, 1));
+                walks = currUser.getWalks();
 
-                mAdapter = new PetAdapter(this, pets, this);
+                //for pets
+                mRecycleView = findViewById(R.id.pets_for_walk);
+                mRecycleView.setLayoutManager(new GridLayoutManager(this, 2));
+
+                mAdapter = new PetsForWalkAdapter(this, pets, this);
                 mRecycleView.setAdapter(mAdapter);
+
                 mAdapter.notifyDataSetChanged();
+
+                //for walks
+                mRecycleViewWalk = findViewById(R.id.walkRec);
+                mRecycleViewWalk.setLayoutManager(new GridLayoutManager(this, 1));
+
+                mAdapterWalk = new WalkAdapter(this, walks);
+                mRecycleViewWalk.setAdapter(mAdapterWalk);
+
+                mAdapterWalk.notifyDataSetChanged();
             }
-
         });
-        // checks the amount of pets a user has
-        if (PetsActivity.pets.size() >= 4) {
-            cardView.setVisibility(View.INVISIBLE);
-            cardView.getLayoutParams().height = 0;
-            cardView.setClickable(false);
-        } else {
-            cardView.setVisibility(View.VISIBLE);
-            cardView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            cardView.setClickable(true);
-        }
-        mAdapter.notifyDataSetChanged();
-    }
 
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -145,7 +129,6 @@ public class PetsActivity extends AppCompatActivity implements PetAdapter.OnPetL
                 break;
 
             case R.id.nav_walk:
-                openWalks();
                 break;
 
             case R.id.nav_profile:
@@ -157,6 +140,7 @@ public class PetsActivity extends AppCompatActivity implements PetAdapter.OnPetL
                 break;
 
             case R.id.nav_pets:
+                openPets();
                 break;
 
             case R.id.nav_logout:
@@ -168,6 +152,7 @@ public class PetsActivity extends AppCompatActivity implements PetAdapter.OnPetL
         return true;
     }
 
+
     @Override
     public void onBackPressed() {
 
@@ -176,31 +161,22 @@ public class PetsActivity extends AppCompatActivity implements PetAdapter.OnPetL
         } else {
             super.onBackPressed();
             auth.signOut();
-            Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
         }
 
-    }
-
-    public void openAddPet(View view) {
-        // checks the amount of pets a user has
-        if (PetsActivity.pets.size() >= 4) {
-            if (mToast != null) {
-                mToast.cancel();
-            }
-            mToast = Toast.makeText(PetsActivity.this, "You already have 4 pets!", Toast.LENGTH_SHORT);
-            mToast.show();
-        } else {
-            Intent intent = new Intent(this, PetAddActivity.class);
-            finish();
-            startActivity(intent);
-        }
     }
 
     private void signOut() {
         auth.signOut();
         finish();
-        Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
+    }
+
+    private void openPets() {
+        Intent intent = new Intent(this, PetsActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 
     private void openCalendar() {
@@ -233,46 +209,40 @@ public class PetsActivity extends AppCompatActivity implements PetAdapter.OnPetL
         finish();
     }
 
+    public void goWalk(View view) {
+        if (pets.isEmpty()) {
+            if (mToast != null) {
+                mToast.cancel();
+            }
+            mToast = Toast.makeText(WalksActivity.this, "You can't go on a walk alone ...", Toast.LENGTH_SHORT);
+            mToast.show();
+        } else {
+            if (selectedPet == null) {
+                if (mToast != null) {
+                    mToast.cancel();
+                }
+                mToast = Toast.makeText(WalksActivity.this, "Select a pet first ...", Toast.LENGTH_SHORT);
+                mToast.show();
+            } else {
+                Intent intent = new Intent(this, OnWalkActivity.class);
+                intent.putExtra("petName", selectedPet.getName());
+                startActivity(intent);
+                finish();
+            }
+        }
+    }
 
     public void refresh(View view) {
-        // refreshes view
         finish();
         overridePendingTransition(0, 0);
         startActivity(getIntent());
         overridePendingTransition(0, 0);
     }
 
-
-    public void delClicked(View view) {
-
-        // delete icon is clicked
-        if (deleteActive) {
-            deleteActive = false;
-            delete.setImageResource(R.drawable.delete_icon);
-        } else {
-            deleteActive = true;
-            delete.setImageResource(R.drawable.del_active_ico);
-            if (mToast != null) {
-                mToast.cancel();
-            }
-            mToast = Toast.makeText(PetsActivity.this, "Click on a pet to delete it!", Toast.LENGTH_SHORT);
-            mToast.show();
-        }
-    }
-
     @Override
     public void onPetClick(int position) {
-        // checks if delete active then proceeds accordingly
-        if(deleteActive){
-            deleteActive = false;
-            pets.remove(position);
-            delete.setImageResource(R.drawable.delete_icon);
-            mAdapter.notifyItemRemoved(position);
-            cRef.document(id).update("pets", PetsActivity.pets);
-            finish();
-            overridePendingTransition(0, 0);
-            startActivity(getIntent());
-            overridePendingTransition(0, 0);
-        }
+        selectedPet = pets.get(position);
+
+        selectedPetTv.setText("Walk with: " + selectedPet.getName());
     }
 }

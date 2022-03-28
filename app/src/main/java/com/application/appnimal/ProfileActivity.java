@@ -1,72 +1,66 @@
-package com.example.appnimal;
+package com.application.appnimal;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.appnimal.R;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
-public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapter.OnPetListener {
+public class ProfileActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-    private TextView selectedPetTv;
+    private TextInputEditText fullName;
+    private TextInputEditText userName;
+    private TextInputEditText email;
+    private TextInputEditText password;
+    private TextView fullnameDisplay;
+    private TextView usernameDisplay;
+    private TextView petsNumber;
     private FirebaseAuth auth;
+    private FirebaseFirestore mFirestore;
     private CollectionReference cRef;
     private User currUser;
-    private Toast mToast;
-    private RecyclerView mRecycleView;
-    private RecyclerView mRecycleViewWalk;
-    private PetsForWalkAdapter mAdapter;
-    private WalkAdapter mAdapterWalk;
-    private FirebaseFirestore mFirestore;
     private String id;
-    private Pet selectedPet = null;
-    public static ArrayList<Pet> pets = new ArrayList<Pet>();
-    public static ArrayList<Walk> walks = new ArrayList<Walk>();
-
+    private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_walks);
+        setContentView(R.layout.activity_profile);
 
-        selectedPetTv = findViewById(R.id.selectedPetTv);
         navigationView = findViewById(R.id.nav_view);
+
         drawerLayout = findViewById(R.id.draw_layout);
         toolbar = findViewById(R.id.toolbar);
         auth = FirebaseAuth.getInstance();
 
-        if (pets.isEmpty()) {
-            selectedPetTv.setText("You have no pets! \n Go add one first.");
-        } else {
-            if (selectedPet == null) {
-                selectedPetTv.setText("No pet selected yet ...");
-            }
-        }
+        fullnameDisplay = findViewById(R.id.full_name);
+        usernameDisplay = findViewById(R.id.usernameDisplay);
+        petsNumber = findViewById(R.id.pets_number);
+
+        fullName = findViewById(R.id.fullName);
+        userName = findViewById(R.id.userName);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
@@ -76,48 +70,21 @@ public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapt
 
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setCheckedItem(R.id.nav_walk);
+        navigationView.setCheckedItem(R.id.nav_profile);
         navigationView.setNavigationItemSelectedListener(this::onOptionsItemSelected);
 
         mFirestore = FirebaseFirestore.getInstance();
         cRef = mFirestore.collection("Useres");
         auth = FirebaseAuth.getInstance();
-
-
-
         getUserInfo();
-
     }
 
-    private void getUserInfo() {
-        cRef.whereEqualTo("email", auth.getCurrentUser().getEmail()).get().addOnSuccessListener(queryDocumentSnapshots -> {
-            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                currUser = doc.toObject(User.class);
-                id = doc.getId();
-                pets = currUser.getPets();
-                walks = currUser.getWalks();
-
-                //for pets
-                mRecycleView = findViewById(R.id.pets_for_walk);
-                mRecycleView.setLayoutManager(new GridLayoutManager(this, 2));
-
-                mAdapter = new PetsForWalkAdapter(this, pets, this);
-                mRecycleView.setAdapter(mAdapter);
-
-                mAdapter.notifyDataSetChanged();
-
-                //for walks
-                mRecycleViewWalk = findViewById(R.id.walkRec);
-                mRecycleViewWalk.setLayoutManager(new GridLayoutManager(this, 1));
-
-                mAdapterWalk = new WalkAdapter(this, walks);
-                mRecycleViewWalk.setAdapter(mAdapterWalk);
-
-                mAdapterWalk.notifyDataSetChanged();
-            }
-        });
-
+    @Override
+    protected void onResume() {
+        getUserInfo();
+        super.onResume();
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -132,10 +99,10 @@ public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapt
                 break;
 
             case R.id.nav_walk:
+                openWalks();
                 break;
 
             case R.id.nav_profile:
-                openProfile();
                 break;
 
             case R.id.nav_settings:
@@ -155,6 +122,64 @@ public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapt
         return true;
     }
 
+    public void updateUser(View view) {
+
+        String newUserName = userName.getText().toString();
+        String newFullName = fullName.getText().toString();
+        String newEmail = email.getText().toString();
+        String newPassword = password.getText().toString();
+
+        if(newUserName.equals("") || newFullName.equals("") || newEmail.equals("") || newPassword.equals("")){
+            if (mToast != null) {
+                mToast.cancel();
+            }
+            mToast = Toast.makeText(ProfileActivity.this, "Something is missing!", Toast.LENGTH_LONG);
+            mToast.show();
+        }else{
+            cRef.document(id).update("email", newEmail);
+            cRef.document(id).update("fullName", newFullName);
+            cRef.document(id).update("userName", newUserName);
+            cRef.document(id).update("pw", newPassword);
+            if (mToast != null) {
+                mToast.cancel();
+            }
+            mToast = Toast.makeText(ProfileActivity.this, "Updated succesfully!", Toast.LENGTH_LONG);
+            mToast.show();
+
+            userName.setText(newUserName);
+            fullName.setText(newFullName);
+            email.setText(newEmail);
+            password.setText(newPassword);
+
+            Objects.requireNonNull(auth.getCurrentUser()).updateEmail(newEmail);
+            auth.getCurrentUser().updatePassword(newPassword);
+
+            fullnameDisplay.setText(newFullName);
+            usernameDisplay.setText(newUserName);
+            petsNumber.setText(String.valueOf(currUser.getPets().size()));
+        }
+    }
+
+
+    private void getUserInfo() {
+        cRef.whereEqualTo("email", auth.getCurrentUser().getEmail()).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                currUser = doc.toObject(User.class);
+                id = doc.getId();
+                userName.setText(currUser.getUserName());
+                fullName.setText(currUser.getFullName());
+                email.setText(currUser.getEmail());
+                password.setText(currUser.getPw());
+                fullnameDisplay.setText(currUser.getFullName());
+                usernameDisplay.setText(currUser.getUserName());
+                petsNumber.setText(String.valueOf(currUser.getPets().size()));
+            }
+
+        });
+
+
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -165,14 +190,9 @@ public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapt
             super.onBackPressed();
             auth.signOut();
             Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
+
         }
 
-    }
-
-    private void signOut() {
-        auth.signOut();
-        finish();
-        Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
     }
 
     private void openPets() {
@@ -180,6 +200,12 @@ public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapt
         startActivity(intent);
         finish();
 
+    }
+
+    private void signOut() {
+        auth.signOut();
+        finish();
+        Toast.makeText(this, "Log out succesfull!", Toast.LENGTH_LONG).show();
     }
 
     private void openCalendar() {
@@ -212,40 +238,5 @@ public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapt
         finish();
     }
 
-    public void goWalk(View view) {
-        if (pets.isEmpty()) {
-            if (mToast != null) {
-                mToast.cancel();
-            }
-            mToast = Toast.makeText(WalksActivity.this, "You can't go on a walk alone ...", Toast.LENGTH_SHORT);
-            mToast.show();
-        } else {
-            if (selectedPet == null) {
-                if (mToast != null) {
-                    mToast.cancel();
-                }
-                mToast = Toast.makeText(WalksActivity.this, "Select a pet first ...", Toast.LENGTH_SHORT);
-                mToast.show();
-            } else {
-                Intent intent = new Intent(this, OnWalkActivity.class);
-                intent.putExtra("petName", selectedPet.getName());
-                startActivity(intent);
-                finish();
-            }
-        }
-    }
 
-    public void refresh(View view) {
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(getIntent());
-        overridePendingTransition(0, 0);
-    }
-
-    @Override
-    public void onPetClick(int position) {
-        selectedPet = pets.get(position);
-
-        selectedPetTv.setText("Walk with: " + selectedPet.getName());
-    }
 }

@@ -1,8 +1,7 @@
-package com.example.appnimal;
+package com.application.appnimal;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -10,7 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.Array;
+import com.example.appnimal.R;
+
 import java.util.ArrayList;
 
 public class PetAdapter extends RecyclerView.Adapter<PetAdapter.ViewHolder> {

@@ -1,4 +1,4 @@
-package com.example.appnimal;
+package com.application.appnimal;
 
 import java.util.ArrayList;
 
