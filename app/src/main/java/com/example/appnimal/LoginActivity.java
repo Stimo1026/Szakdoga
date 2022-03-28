@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextTextPassword = findViewById(R.id.editTextTextPassword);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                //neha az idea erre errort dob (nem tudja rendesesn parse olni) de mukoidk ne probald kijavitabi
+                //this is a parsing error, works like this
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
@@ -51,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // login check
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
@@ -64,17 +65,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
+        // google login auth
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                            // sign in success, update UI with the signed-in user's information
                             startAppnimal();
                         } else {
                             if (mToast != null) mToast.cancel();
-                            // If sign in fails, display a message to the user.
+                            // if sign in fails, display a message to the user.
                             mToast = Toast.makeText(LoginActivity.this, "Sign in with Google failed!", Toast.LENGTH_LONG);
                             mToast.show();
                         }
@@ -83,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void startAppnimal() {
+        // starts activity
         Intent intent = new Intent(this, AppnimalActivity.class);
         startActivity(intent);
     }
@@ -93,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View view){
+        // login checks password and name
         String uname = editTextTextPersonName.getText().toString();
         String pw = editTextTextPassword.getText().toString();
 

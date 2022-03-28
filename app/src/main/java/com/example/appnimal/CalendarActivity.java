@@ -40,6 +40,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
+        //hooks
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.draw_layout);
         toolbar = findViewById(R.id.toolbar);
@@ -47,15 +48,16 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         calendarRecycleView = findViewById(R.id.CalendarRecycleView);
         monthYearText = findViewById(R.id.MonthYearTextView);
 
+        // sets the current date
         selectedDate = LocalDate.now();
         setMonthView();
 
+        // menu
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setCheckedItem(R.id.nav_calendar);
@@ -64,6 +66,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     }
 
     private void setMonthView() {
+        // sets the days of month in the layout
         monthYearText.setText(monthYearFromDate(selectedDate));
         ArrayList<String> daysInMonth = daysInMonth(selectedDate);
 
@@ -76,16 +79,21 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private ArrayList<String> daysInMonth(LocalDate date) {
         ArrayList<String> daysInMonthArray = new ArrayList<>();
         YearMonth yearMonth = YearMonth.from(date);
+        // selects the month from days and gets the length of it
         int daysInMonth = yearMonth.lengthOfMonth();
         LocalDate firstofMonth = selectedDate.withDayOfMonth(1);
 
+        // gets the first day of a month
         int dayOfWeek = firstofMonth.getDayOfWeek().getValue();
 
         for(int i = 1; i <= 42; i++){
+            // fills the empty cells
             if(i <= dayOfWeek || i > daysInMonth + dayOfWeek){
+                // there is no day in cell
                 daysInMonthArray.add("");
             }
             else{
+                // there is a day in cell
                 daysInMonthArray.add(String.valueOf(i - dayOfWeek));
             }
         }
@@ -93,17 +101,20 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     }
 
     private String monthYearFromDate(LocalDate date){
+        // simple formatter for the date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
         return date.format(formatter);
     }
 
     public void prevMonth(View view){
+        // called from layout button back
         selectedDate = selectedDate.minusMonths(1);
         setMonthView();
     }
 
 
     public void nextMonth(View view){
+        // called from layout button forward
         selectedDate = selectedDate.plusMonths(1);
         setMonthView();
     }
@@ -205,6 +216,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
 
     @Override
     public void onItemClick(int position, String daytext) {
+        // if we click a cell open a new activity with current date
         if(!daytext.equals("")){
             Intent intent = new Intent(this, SetNotificationActivity.class);
             intent.putExtra("date", daytext + ". " + monthYearFromDate(selectedDate));

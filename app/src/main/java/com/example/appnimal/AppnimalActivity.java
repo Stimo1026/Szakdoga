@@ -37,35 +37,45 @@ public class AppnimalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appnimal_main);
 
+        //hooks
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.draw_layout);
         toolbar = findViewById(R.id.toolbar);
 
-        auth = FirebaseAuth.getInstance();
 
+
+        // sets a toolbar to the screen
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
+        // menu on top
         navigationView.bringToFront();
+
+        //menu opening and closing animations
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        //sets the status bar color according to the layout
         setStatusBarcolor();
 
+        //firebase user detection
+        auth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
 
+        // sets the selected menu option
         navigationView.setNavigationItemSelectedListener(this::onOptionsItemSelected);
-
         navigationView.setCheckedItem(R.id.nav_home);
+
+        // stores new user after first login
         storeNewUser();
     }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
+        // handle item selection in menu
         switch (item.getItemId()) {
             case R.id.nav_home:
                 break;
@@ -96,6 +106,7 @@ public class AppnimalActivity extends AppCompatActivity {
                 break;
 
         }
+        // closes the menu
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -103,12 +114,13 @@ public class AppnimalActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        // override the back press action to close the menu if open
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
             auth.signOut();
+            // if menu isn't open log out
             makeToast("Log out succesfull!");
 
         }
@@ -116,11 +128,13 @@ public class AppnimalActivity extends AppCompatActivity {
     }
 
     private void signOut() {
+        //logs out the user
         auth.signOut();
         finish();
         makeToast("Log out succesfull!");
     }
 
+    // open the activity that was clicked in menu
     private void openCalendar() {
         Intent intent = new Intent(this, CalendarActivity.class);
         startActivity(intent);
@@ -157,6 +171,7 @@ public class AppnimalActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
+    // sets the statusbar color according to screen
     private void setStatusBarcolor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.transparent, this.getTheme()));
@@ -166,6 +181,7 @@ public class AppnimalActivity extends AppCompatActivity {
     }
 
     private void storeNewUser() {
+        //stores new user in firebase
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     }

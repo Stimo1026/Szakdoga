@@ -103,6 +103,7 @@ public class PetsActivity extends AppCompatActivity implements PetAdapter.OnPetL
     }
 
     private void getUserInfo() {
+        // gets user info and pets for user
         cRef.whereEqualTo("email", auth.getCurrentUser().getEmail()).get().addOnSuccessListener(queryDocumentSnapshots -> {
             for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                 currUser = doc.toObject(User.class);
@@ -117,7 +118,7 @@ public class PetsActivity extends AppCompatActivity implements PetAdapter.OnPetL
             }
 
         });
-
+        // checks the amount of pets a user has
         if (PetsActivity.pets.size() >= 4) {
             cardView.setVisibility(View.INVISIBLE);
             cardView.getLayoutParams().height = 0;
@@ -182,7 +183,7 @@ public class PetsActivity extends AppCompatActivity implements PetAdapter.OnPetL
     }
 
     public void openAddPet(View view) {
-
+        // checks the amount of pets a user has
         if (PetsActivity.pets.size() >= 4) {
             if (mToast != null) {
                 mToast.cancel();
@@ -234,6 +235,7 @@ public class PetsActivity extends AppCompatActivity implements PetAdapter.OnPetL
 
 
     public void refresh(View view) {
+        // refreshes view
         finish();
         overridePendingTransition(0, 0);
         startActivity(getIntent());
@@ -242,6 +244,8 @@ public class PetsActivity extends AppCompatActivity implements PetAdapter.OnPetL
 
 
     public void delClicked(View view) {
+
+        // delete icon is clicked
         if (deleteActive) {
             deleteActive = false;
             delete.setImageResource(R.drawable.delete_icon);
@@ -258,6 +262,7 @@ public class PetsActivity extends AppCompatActivity implements PetAdapter.OnPetL
 
     @Override
     public void onPetClick(int position) {
+        // checks if delete active then proceeds accordingly
         if(deleteActive){
             deleteActive = false;
             pets.remove(position);

@@ -53,6 +53,7 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_walk);
 
+        // get data from previous screen
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
 
@@ -63,6 +64,7 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
         meters_tv = findViewById(R.id.meters_walked);
 
         if (b != null) {
+            // gets pet selected for walk
             pet_tv.setText((String) b.get("petName"));
         }
 
@@ -72,24 +74,29 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
             requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, 0);
         }
 
+        // keep the screen on while walking
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        // get current sensor
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-
         if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR) != null) {
             stepDetector = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
         }
+
+        // start timer for walk
         timer = new Timer();
         startTimer();
 
+        // firestore user quary
         mFirestore = FirebaseFirestore.getInstance();
         cRef = mFirestore.collection("Useres");
         auth = FirebaseAuth.getInstance();
-
         getUserInfo();
+
     }
 
     private void startTimer() {
+        // timer on new thread
         timerTask = new TimerTask() {
             @Override
             public void run() {
@@ -102,11 +109,13 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
                 });
             }
         };
+        // 1 second delay
         timer.scheduleAtFixedRate(timerTask, 1000, 1000);
     }
 
 
     private String getTimerText() {
+        // returns the time from the timer
         int rounded = (int) Math.round(time);
         int seconds = ((rounded % 86400) % 3600) % 60;
         int minutes = ((rounded % 86400) % 3600) / 60;
@@ -116,11 +125,13 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
     }
 
     private String formatTime(int seconds, int minutes, int hours) {
+        // string format to display time
         return String.format("%02d", hours) + ":" + String.format("%02d", minutes) + ":" + String.format("%02d", seconds);
     }
 
     @Override
     protected void onResume() {
+        // getting the sensor listener after a resume
         if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR) != null) {
             sensorManager.registerListener(this, stepDetector, SensorManager.SENSOR_DELAY_NORMAL);
         }
@@ -129,6 +140,7 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
 
     @Override
     protected void onPause() {
+        // unregistering the sensor listener
         if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR) != null) {
             sensorManager.unregisterListener(this, stepDetector);
         }
@@ -136,6 +148,7 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
     }
 
     private void getUserInfo() {
+        // getting the user info from database
         cRef.whereEqualTo("email", auth.getCurrentUser().getEmail()).get().addOnSuccessListener(queryDocumentSnapshots -> {
             for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                 currUser = doc.toObject(User.class);
@@ -146,6 +159,7 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
     }
 
     public void stopWalak(View view) {
+        // called from layout stops the walk and saves it to firebase
         int steps;
         int length;
         String date;
@@ -179,6 +193,7 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        // sensor event detection
         if (event.sensor == stepDetector) {
             stepCount = (int) (stepCount + event.values[0]);
             steps_tv.setText(String.valueOf(stepCount));

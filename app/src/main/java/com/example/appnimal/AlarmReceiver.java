@@ -10,6 +10,7 @@ import androidx.core.app.NotificationManagerCompat;
 public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+        // builds a notification with the following attributes
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "Appnimal")
                 .setSmallIcon(R.drawable.pets_icon)
                 .setContentTitle("Don't forget:")

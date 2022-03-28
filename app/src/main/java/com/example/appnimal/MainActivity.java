@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public  void openRegist(View view){
+        // opens register with animation
         Intent intent = new Intent(this, RegisterActivity.class);
 
         Pair[] pairs = new Pair[1];
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public  void openLogin(View view){
+        // opens login with animation
         Intent intent = new Intent(this, LoginActivity.class);
 
         Pair[] pairs = new Pair[1];

@@ -31,6 +31,7 @@ public class PetAddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_add);
 
+        // firestore get user
         mFirestore = FirebaseFirestore.getInstance();
         cRef = mFirestore.collection("Useres");
         auth = FirebaseAuth.getInstance();
@@ -54,12 +55,14 @@ public class PetAddActivity extends AppCompatActivity {
 
 
     public void addPet(View view) {
+        // adds pet to database
         String name = nameEditText.getText().toString();
         String breed = breedEditText.getText().toString();
         String species = speciesEditText.getText().toString();
         String ageStr = ageEditText.getText().toString();
         int age;
 
+        // verify inputs
         if (ageStr.equals("")) {
             age = -42;
         } else {
