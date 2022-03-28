@@ -25,9 +25,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
 public class SetNotificationActivity extends AppCompatActivity {
 
+    public static String message = "You did not set this text.";
     private TextView test;
     private Button timeButton;
     private Button setNotiButton;
@@ -67,14 +69,18 @@ public class SetNotificationActivity extends AppCompatActivity {
 
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-        if(timeButton.getText().equals("SELECT TIME")){
+        if(timeButton.getText().toString().equals("SELECT TIME")){
             Toast.makeText(SetNotificationActivity.this, "Select a time first!", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(notiText.getText().equals("")){
-            Toast.makeText(SetNotificationActivity.this, "Set a text first'", Toast.LENGTH_SHORT).show();
+        if(Objects.requireNonNull(notiText.getText()).toString().equals("")){
+            Toast.makeText(SetNotificationActivity.this, "Text is empty.", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(notiText.getText() != null){
+            message = notiText.getText().toString();
+        }
+
 
         Intent intent = new Intent(this, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(SetNotificationActivity.this,
@@ -88,6 +94,7 @@ public class SetNotificationActivity extends AppCompatActivity {
             Toast.makeText(SetNotificationActivity.this, "Single alarm set!", Toast.LENGTH_SHORT).show();
         }
 
+        finish();
 
     }
 

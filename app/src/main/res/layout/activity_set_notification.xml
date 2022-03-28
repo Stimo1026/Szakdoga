@@ -58,7 +58,7 @@
             android:layout_marginTop="20dp"
             android:background="@color/grey"
             android:onClick="popTimePicker"
-            android:text="select time"
+            android:text="SELECT TIME"
             android:textSize="25sp"
             android:textStyle="bold" />
 

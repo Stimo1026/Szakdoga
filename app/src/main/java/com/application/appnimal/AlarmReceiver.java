@@ -7,6 +7,7 @@ import android.content.Intent;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.application.appnimal.activities.SetNotificationActivity;
 import com.example.appnimal.R;
 
 public class AlarmReceiver extends BroadcastReceiver {
@@ -16,7 +17,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "Appnimal")
                 .setSmallIcon(R.drawable.pets_icon)
                 .setContentTitle("Don't forget:")
-                .setContentText("Placeholder text")
+                .setContentText(SetNotificationActivity.message)
                 .setAutoCancel(true)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
