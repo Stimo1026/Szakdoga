@@ -13,6 +13,7 @@
         android:theme="@style/Theme.Appnimal">
         <activity
             android:name="com.application.appnimal.activities.OnWalkActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.application.appnimal.activities.SetNotificationActivity"
