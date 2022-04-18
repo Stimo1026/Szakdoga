@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/oswald"
                 android:textAlignment="center"
-                android:text="0"
+                android:text="0 m"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 />

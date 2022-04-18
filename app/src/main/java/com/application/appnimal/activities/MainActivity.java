@@ -18,18 +18,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public  void openRegist(View view){
+    public void openRegist(View view){
         // opens register with animation
         Intent intent = new Intent(this, RegisterActivity.class);
-
         Pair[] pairs = new Pair[1];
-
         pairs[0] = new Pair<View, String>(findViewById(R.id.register),"transition_register");
-
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, pairs);
-
         startActivity(intent,options.toBundle());
-
     }
 
     public  void openLogin(View view){

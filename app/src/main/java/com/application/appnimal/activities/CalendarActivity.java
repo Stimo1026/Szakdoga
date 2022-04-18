@@ -71,7 +71,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         // sets the days of month in the layout
         monthYearText.setText(monthYearFromDate(selectedDate));
         ArrayList<String> daysInMonth = daysInMonth(selectedDate);
-
         CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecycleView.setLayoutManager(layoutManager);
@@ -84,10 +83,8 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         // selects the month from days and gets the length of it
         int daysInMonth = yearMonth.lengthOfMonth();
         LocalDate firstofMonth = selectedDate.withDayOfMonth(1);
-
         // gets the first day of a month
         int dayOfWeek = firstofMonth.getDayOfWeek().getValue();
-
         for(int i = 1; i <= 42; i++){
             // fills the empty cells
             if(i <= dayOfWeek || i > daysInMonth + dayOfWeek){
@@ -113,8 +110,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         selectedDate = selectedDate.minusMonths(1);
         setMonthView();
     }
-
-
     public void nextMonth(View view){
         // called from layout button forward
         selectedDate = selectedDate.plusMonths(1);

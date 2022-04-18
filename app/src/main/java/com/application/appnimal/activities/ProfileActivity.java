@@ -126,12 +126,10 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void updateUser(View view) {
-
         String newUserName = userName.getText().toString();
         String newFullName = fullName.getText().toString();
         String newEmail = email.getText().toString();
         String newPassword = password.getText().toString();
-
         if(newUserName.equals("") || newFullName.equals("") || newEmail.equals("") || newPassword.equals("")){
             if (mToast != null) {
                 mToast.cancel();
@@ -179,10 +177,7 @@ public class ProfileActivity extends AppCompatActivity {
                 petsNumber.setText(String.valueOf(currUser.getPets().size()));
                 walksNumber.setText(String.valueOf(currUser.getWalks().size()));
             }
-
         });
-
-
     }
 
 

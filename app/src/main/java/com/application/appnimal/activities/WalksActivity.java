@@ -62,13 +62,7 @@ public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapt
         toolbar = findViewById(R.id.toolbar);
         auth = FirebaseAuth.getInstance();
 
-        if (pets.isEmpty()) {
-            selectedPetTv.setText("You have no pets! \n Go add one first.");
-        } else {
-            if (selectedPet == null) {
-                selectedPetTv.setText("No pet selected yet ...");
-            }
-        }
+
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
@@ -116,6 +110,14 @@ public class WalksActivity extends AppCompatActivity implements PetsForWalkAdapt
                 mRecycleViewWalk.setAdapter(mAdapterWalk);
 
                 mAdapterWalk.notifyDataSetChanged();
+
+                if (pets.isEmpty()) {
+                    selectedPetTv.setText("You have no pets! \n Go add one first.");
+                } else {
+                    if (selectedPet == null) {
+                        selectedPetTv.setText("No pet selected yet ...");
+                    }
+                }
             }
         });
 

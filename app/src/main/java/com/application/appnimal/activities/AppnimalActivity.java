@@ -40,20 +40,19 @@ public class AppnimalActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.draw_layout);
         toolbar = findViewById(R.id.toolbar);
 
-
-
         // sets a toolbar to the screen
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-
         // menu on top
         navigationView.bringToFront();
-
         //menu opening and closing animations
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this::onOptionsItemSelected);
+        navigationView.setCheckedItem(R.id.nav_home);
+
 
         //sets the status bar color according to the layout
         setStatusBarcolor();
@@ -63,8 +62,7 @@ public class AppnimalActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         // sets the selected menu option
-        navigationView.setNavigationItemSelectedListener(this::onOptionsItemSelected);
-        navigationView.setCheckedItem(R.id.nav_home);
+
 
         // stores new user after first login
         storeNewUser();
@@ -120,9 +118,7 @@ public class AppnimalActivity extends AppCompatActivity {
             auth.signOut();
             // if menu isn't open log out
             makeToast("Log out succesfull!");
-
         }
-
     }
 
     private void signOut() {
@@ -137,7 +133,6 @@ public class AppnimalActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CalendarActivity.class);
         startActivity(intent);
         finish();
-
     }
 
     private void openWalks() {

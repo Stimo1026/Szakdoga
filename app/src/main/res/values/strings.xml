@@ -17,11 +17,4 @@
     <string name="right_arrow"><![CDATA[->]]></string>
     <string name="left_arrow"><![CDATA[<-]]></string>
 
-    <array name="test">
-        <item>Elso</item>
-        <item>masodik</item>
-        <item>harmadik</item>
-        <item>begyedik</item>
-    </array>
-
 </resources>

@@ -40,6 +40,7 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
     SensorManager sensorManager;
     Sensor stepDetector;
     int stepCount = 0;
+    double distance = 0;
     Timer timer;
     double time = 0.0;
     TimerTask timerTask;
@@ -175,7 +176,7 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
         duration = time_tv.getText().toString();
         petName = pet_tv.getText().toString();
         steps = Integer.parseInt(steps_tv.getText().toString());
-        length = Integer.parseInt(meters_tv.getText().toString());
+        length = (int) distance;
 
         Walk walk = new Walk(date,petName,duration,steps,length);
         WalksActivity.walks.add(walk);
@@ -199,6 +200,8 @@ public class OnWalkActivity extends AppCompatActivity implements SensorEventList
         if (event.sensor == stepDetector) {
             stepCount = (int) (stepCount + event.values[0]);
             steps_tv.setText(String.valueOf(stepCount));
+            distance = stepCount * 0.7;
+            meters_tv.setText(String.format("%.2f", distance) + " m");
         }
 
     }

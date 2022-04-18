@@ -55,7 +55,6 @@ public class SetNotificationActivity extends AppCompatActivity {
         timeButton = findViewById(R.id.timeButton);
         notiText = findViewById(R.id.notiText);
 
-
         creatChannel();
         if (b != null) {
             String text = (String) b.get("date");
@@ -104,7 +103,6 @@ public class SetNotificationActivity extends AppCompatActivity {
         int importance = NotificationManager.IMPORTANCE_HIGH;
         NotificationChannel channel = new NotificationChannel("Appnimal", name, importance);
         channel.setDescription(desc);
-
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
     }
@@ -116,7 +114,6 @@ public class SetNotificationActivity extends AppCompatActivity {
                 hour = selectedHour;
                 minute = selectedMinute;
                 timeButton.setText(String.format((Locale.getDefault()), "%02d:%02d", hour, minute));
-
                 calendar = Calendar.getInstance();
                 calendar.set(Calendar.YEAR, selectedDate.getYear());
                 calendar.set(Calendar.MONTH, selectedDate.getMonthValue()-1);
@@ -144,7 +141,6 @@ public class SetNotificationActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(SetNotificationActivity.this,
                 0, intent, 0);
-
         alarmManager.cancel(pendingIntent);
         Toast.makeText(SetNotificationActivity.this, "Alarm cancelled!", Toast.LENGTH_SHORT).show();
     }

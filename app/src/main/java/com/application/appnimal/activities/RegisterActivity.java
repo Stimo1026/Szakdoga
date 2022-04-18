@@ -20,8 +20,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static final String LOG_TAG = RegisterActivity.class.getName();
-
     EditText userNameEditText;
     EditText userEmailEditText;
     EditText passwordEditText;
@@ -41,7 +39,6 @@ public class RegisterActivity extends AppCompatActivity {
         userEmailEditText = findViewById(R.id.userEmailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         passwordConfirmEditText = findViewById(R.id.passwordAgainEditText);
-
         mFirestore = FirebaseFirestore.getInstance();
         cRef = mFirestore.collection("Useres");
         auth = FirebaseAuth.getInstance();
@@ -51,7 +48,6 @@ public class RegisterActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AppnimalActivity.class);
         startActivity(intent);
     }
-
     public void cancel(View view) {
         finish();
     }
@@ -81,12 +77,10 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            //Log.d(LOG_TAG, "User created successfully");
                             storeUser(username, email, pw);
                             startAppnimal();
                             finish();
                         } else {
-                            //Log.d(LOG_TAG, "User was't created successfully:", task.getException());
                             if (mToast != null) {
                                 mToast.cancel();
                             }
@@ -97,13 +91,11 @@ public class RegisterActivity extends AppCompatActivity {
                 });
             }
         }
-
     }
 
     private void storeUser(String username, String email, String password) {
         User user = new User(username, "full name", password, email);
         cRef.add(user);
-
     }
 
 

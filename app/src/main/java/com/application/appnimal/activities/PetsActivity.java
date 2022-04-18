@@ -246,7 +246,6 @@ public class PetsActivity extends AppCompatActivity implements PetAdapter.OnPetL
 
 
     public void delClicked(View view) {
-
         // delete icon is clicked
         if (deleteActive) {
             deleteActive = false;
